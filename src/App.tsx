@@ -2,30 +2,36 @@ import React from 'react'
 import './App.css'
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
-import Dialogs from './components/Dialogs/Dialogs'
+import Dialogs, {dialogDataType, MessagesType} from './components/Dialogs/Dialogs'
 import Profile from './components/Profile/Profile'
-import { BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route} from 'react-router-dom'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
+import {MessagesPostType} from './components/Profile/MyPosts/Post/Post';
 
+type AppPropsType = {
+  dialogsData: dialogDataType[]
+  messages: MessagesType[]
+  messagesPosts: MessagesPostType[]
+}
+const App: React.FC<AppPropsType> = (props) => {
 
-const App = () => {
-	return (
-		<BrowserRouter>
-			<div className='app-wrapper'>
-				<Header />
-				<Navbar />
-				<div className={'app-wrapper-content'}>
-					<Route path='/dialogs' render={()=><Dialogs/>}/>
-					<Route path='/profile' render={()=><Profile/>} />
-          <Route path='/news' render={()=><News/>}/>
-          <Route path='/music' render={()=><Music/>}/>
-          <Route path='/settings' render={()=><Settings/>}/>
-				</div>
-			</div>
-		</BrowserRouter>
-	)
+  return (
+    <BrowserRouter>
+      <div className="app-wrapper">
+        <Header/>
+        <Navbar/>
+        <div className={'app-wrapper-content'}>
+          <Route path="/dialogs" render={() => <Dialogs dialogsData={props.dialogsData} messages={props.messages}/>}/>
+          <Route path="/profile" render={() => <Profile messagesPosts={props.messagesPosts}/>}/>
+          <Route path="/news" render={() => <News/>}/>
+          <Route path="/music" render={() => <Music/>}/>
+          <Route path="/settings" render={() => <Settings/>}/>
+        </div>
+      </div>
+    </BrowserRouter>
+  )
 }
 
 export default App
