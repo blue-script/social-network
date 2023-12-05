@@ -1,18 +1,18 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import s from './Dialogs.module.css'
 
 type DialogItemPropsType = {
-	name: string
-	id: string
+  name: string
+  id: string
 }
-const DialogItem: React.FC<DialogItemPropsType> = ({ name, id }) => {
-	const path = '/dialogs/' + id
-	return (
-		<div className={s.dialog + ' ' + s.active}>
-			<NavLink to={path}>{name}</NavLink>
-		</div>
-	)
+const DialogItem: React.FC<DialogItemPropsType> = ({name, id}) => {
+  const path = '/dialogs/' + id
+  return (
+    <div className={s.dialog + ' ' + s.active}>
+      <NavLink to={path}>{name}</NavLink>
+    </div>
+  )
 }
 
 type MessagePropsType = {
@@ -22,25 +22,42 @@ const Message: React.FC<MessagePropsType> = ({message}) => {
   return <div className={s.message}>{message}</div>
 }
 
+type dialogDataType = {
+	id: string
+	name: string
+}
+type MessagesType = {
+	id: string
+	message: string
+}
 const Dialogs = () => {
-	return (
-		<div>
-			<div className={s.dialogs}>
-				<div className={s.dialogsItems}>
-					<DialogItem name='Dimych' id='1' />
-					<DialogItem name='Valera' id='2' />
-					<DialogItem name='Sasha' id='3' />
-					<DialogItem name='Petia' id='4' />
-					<DialogItem name='Masha' id='5' />
-				</div>
-				<div className={s.messages}>
-          <Message message='Hi'/>
-          <Message message='How are you?'/>
-          <Message message='Yo'/>
-				</div>
-			</div>
-		</div>
-	)
+  let dialogsData: dialogDataType[] = [
+    {id: '1', name: 'Dimych'},
+    {id: '2', name: 'Valera'},
+    {id: '3', name: 'Sasha'},
+    {id: '4', name: 'Petia'},
+    {id: '5', name: 'Masha'},
+  ]
+  let messages: MessagesType[] = [
+    {id: '1', message: 'Hi'},
+    {id: '2', message: 'How are you?'},
+    {id: '3', message: 'Yo'},
+  ]
+
+	let dialogsElements = dialogsData.map( d => <DialogItem name={d.name} id={d.id}/>)
+	let messagesElements = messages.map(m=> <Message message={m.message}/>)
+  return (
+    <div>
+      <div className={s.dialogs}>
+        <div className={s.dialogsItems}>
+					{dialogsElements}
+        </div>
+        <div className={s.messages}>
+					{messagesElements}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default Dialogs
