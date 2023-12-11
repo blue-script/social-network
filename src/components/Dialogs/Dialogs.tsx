@@ -20,9 +20,15 @@ export type DialogsPropsType = {
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
-
   let dialogsElements = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
   let messagesElements = props.state.messages.map(m => <Message message={m.message}/>)
+  let newMessageElement = React.createRef<HTMLTextAreaElement>()
+  let addMessage = () => {
+    if (newMessageElement.current) {
+      let message = newMessageElement.current.value
+      alert(message)
+    }
+  }
   return (
     <div>
       <div className={s.dialogs}>
@@ -31,6 +37,8 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
         </div>
         <div className={s.messages}>
           {messagesElements}
+          <textarea ref={newMessageElement}>New message</textarea>
+          <button onClick={addMessage}>add message</button>
         </div>
       </div>
     </div>
