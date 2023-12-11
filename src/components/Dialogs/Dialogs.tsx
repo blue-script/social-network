@@ -3,7 +3,7 @@ import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
 
-export type dialogDataType = {
+export type dialogType = {
   id: string
   name: string
 }
@@ -13,13 +13,13 @@ export type MessagesType = {
 }
 
 export type DialogsPropsType = {
-  dialogsData: dialogDataType[]
+  dialogs: dialogType[]
   messages: MessagesType[]
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-  let dialogsElements = props.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
+  let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
   let messagesElements = props.messages.map(m => <Message message={m.message}/>)
   return (
     <div>

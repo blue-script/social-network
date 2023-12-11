@@ -1,12 +1,12 @@
 import React from 'react';
 import s from './MyPosts.module.css'
-import Post, {MessagesPostType} from './Post/Post';
+import Post, {PostType} from './Post/Post';
 
 export type MyPostsPropsType = {
-  messagesPosts: MessagesPostType[]
+  posts: PostType[]
 }
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-  let messagesElements = props.messagesPosts
+  let messagesElements = props.posts
     .map(m => <Post id={m.id} message={m.message} likesCount={m.likesCount}/>)
   return (
     <div className={s.postsBlock}>

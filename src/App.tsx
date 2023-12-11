@@ -2,18 +2,18 @@ import React from 'react'
 import './App.css'
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
-import Dialogs, {dialogDataType, MessagesType} from './components/Dialogs/Dialogs'
+import Dialogs, {dialogType, MessagesType} from './components/Dialogs/Dialogs'
+import {PostType} from './components/Profile/MyPosts/Post/Post';
 import Profile from './components/Profile/Profile'
 import {BrowserRouter, Route} from 'react-router-dom'
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
-import {MessagesPostType} from './components/Profile/MyPosts/Post/Post';
 
 type AppPropsType = {
-  dialogsData: dialogDataType[]
+  dialogs: dialogType[]
   messages: MessagesType[]
-  messagesPosts: MessagesPostType[]
+  posts: PostType[]
 }
 const App: React.FC<AppPropsType> = (props) => {
 
@@ -23,8 +23,8 @@ const App: React.FC<AppPropsType> = (props) => {
         <Header/>
         <Navbar/>
         <div className={'app-wrapper-content'}>
-          <Route path="/dialogs" render={() => <Dialogs dialogsData={props.dialogsData} messages={props.messages}/>}/>
-          <Route path="/profile" render={() => <Profile messagesPosts={props.messagesPosts}/>}/>
+          <Route path="/dialogs" render={() => <Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+          <Route path="/profile" render={() => <Profile posts={props.posts}/>}/>
           <Route path="/news" render={() => <News/>}/>
           <Route path="/music" render={() => <Music/>}/>
           <Route path="/settings" render={() => <Settings/>}/>

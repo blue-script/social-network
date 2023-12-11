@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import {DialogItem} from './DialogItem';
 
 export default {
-  title: 'DialogItemUI',
+  title: 'DialogItemUIExample',
   decorators: [
     (DialogItem: React.ComponentType) => (
       <MemoryRouter>
