@@ -1,6 +1,7 @@
 import {DialogType, MessagesType} from '../components/Dialogs/Dialogs';
 import {PostType} from '../components/Profile/MyPosts/Post/Post';
-import {FriendType} from '../components/Friends/Friends';
+
+import {FriendType} from '../components/Friends/Friend/Friend';
 
 type StateType = {
   profilePage: {
@@ -44,6 +45,10 @@ let state: StateType = {
       {id: '3', name: 'Sasha'},
     ],
   }
+}
+
+export const addPost = (message: string) => {
+  state = {...state, 'profilePage': {...state.profilePage, 'posts':  [...state.profilePage.posts, {id: String(state.profilePage.posts.length+1), message: message, likesCount: 0 }]}}
 }
 
 export default state

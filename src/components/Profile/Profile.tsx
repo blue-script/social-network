@@ -7,14 +7,15 @@ import {PostType} from './MyPosts/Post/Post';
 type ProfilePropsType = {
   state: {
     posts: PostType[]
-  }
+  },
+  addPost: (message: string) => void
 }
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
   return (
     <div className={s.content}>
       <ProfileInfo/>
-      <MyPosts posts={props.state.posts}/>
+      <MyPosts posts={props.state.posts} addPost={props.addPost}/>
     </div>
   );
 };

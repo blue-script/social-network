@@ -1,18 +1,19 @@
-import React, {LegacyRef, RefObject} from 'react';
+import React from 'react';
 import s from './MyPosts.module.css'
 import Post, {PostType} from './Post/Post';
 
 export type MyPostsPropsType = {
-  posts: PostType[]
+  posts: PostType[],
+  addPost: (message: string) => void
 }
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-  let messagesElements = props.posts
+  const messagesElements = props.posts
     .map(m => <Post id={m.id} message={m.message} likesCount={m.likesCount}/>)
-  let newPostElement = React.createRef<HTMLTextAreaElement>()
-  let addPost = () => {
+  const newPostElement = React.createRef<HTMLTextAreaElement>()
+  const  addPost = () => {
     if (newPostElement.current) {
-      let text = newPostElement.current.value
-      alert(text)
+      const text = newPostElement.current.value
+      props.addPost(text)
     }
   }
   return (

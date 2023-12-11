@@ -1,7 +1,8 @@
 import React from 'react'
 import s from './Navbar.module.css'
 import { NavLink } from 'react-router-dom'
-import {Friends, FriendType} from '../Friends/Friends';
+import {Friends} from '../Friends/Friends';
+import {FriendType} from '../Friends/Friend/Friend';
 
 type NavbarPropsType = {
 	state: {
