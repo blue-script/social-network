@@ -10,6 +10,12 @@
 .dialogsItems .dialog {
 }
 
+.dialog img {
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+}
+
 .dialog a {
 	text-decoration: none;
   color: #ABB2BF;
@@ -21,7 +27,18 @@
 
 .messages {
 	padding: 10px;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
 }
 
 .messages .message {
+	/*max-width: 200px;*/
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid rgba(0, 60, 255, 0.66);
+	background-color: rgba(0, 60, 255, 0.43);
+}
+.messages .message:nth-child(even) {
+	align-self: flex-end;
 }
