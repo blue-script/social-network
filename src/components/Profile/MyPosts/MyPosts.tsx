@@ -9,13 +9,13 @@ export type MyPostsPropsType = {
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
   const messagesElements = props.posts
     .map(m => <Post id={m.id} message={m.message} likesCount={m.likesCount}/>)
-  const newPostElement = React.createRef<HTMLTextAreaElement>()
-  const  addPost = () => {
+  let newPostElement = React.createRef<HTMLTextAreaElement>()
+  const addPost = () => {
     if (newPostElement.current) {
-      const text = newPostElement.current.value
-      props.addPost(text)
+      props.addPost(newPostElement.current.value)
     }
   }
+
   return (
     <div className={s.postsBlock}>
       My post

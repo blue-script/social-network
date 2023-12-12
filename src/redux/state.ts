@@ -62,18 +62,13 @@ export let state: RootStateType = {
   }
 }
 
-export const addPost = (message: string) => {
-  state = {
-    ...state,
-    'profilePage': {
-      ...state.profilePage,
-      'posts': [...state.profilePage.posts, {
-        id: state.profilePage.posts.length + 1,
-        message: message,
-        likesCount: 0
-      }]
-    }
+export const addPost = (postText: string) => {
+  const newPost: PostType = {
+    id: state.profilePage.posts.length + 1,
+    message: postText,
+    likesCount: 0
   }
+  state.profilePage.posts.push(newPost)
 }
 
 export default state
