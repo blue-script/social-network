@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type FriendType = {
-  id: string
+  id: number
   name: string
 }
 export const Friend: React.FC<FriendType> = (props) => {

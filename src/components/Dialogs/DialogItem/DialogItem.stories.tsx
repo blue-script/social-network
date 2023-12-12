@@ -14,6 +14,6 @@ export default {
 };
 
 export const DialogItemUI = () => {
-  const obj = {name: 'Alex', id: '1'}
+  const obj = {name: 'Alex', id: 1}
   return <DialogItem name={obj.name} id={obj.id}/>
 }
