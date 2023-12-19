@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from '../render';
+
 export type PostType = {
   id: number
   message: string
@@ -31,7 +33,7 @@ export type RootStateType = {
   sidebar: SidebarType
 }
 
-export let state: RootStateType = {
+export const state: RootStateType = {
   profilePage: {
     posts: [
       {id: 1, message: 'Hi, how are you?', likesCount: 12},
@@ -69,6 +71,5 @@ export const addPost = (postText: string) => {
     likesCount: 0
   }
   state.profilePage.posts.push(newPost)
+  rerenderEntireTree(state, addPost)
 }
-
-export default state
