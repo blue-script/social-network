@@ -9,15 +9,14 @@ type ProfilePropsType = {
     posts: PostType[]
     newPostText: string
   },
-  addPost: () => void
-  updateNewPostText: (postText: string) => void
+  dispatch: (action: any) => void
 }
 
 const Profile: React.FC<ProfilePropsType> = (props) => {
   return (
     <div className={s.content}>
       <ProfileInfo/>
-      <MyPosts posts={props.profilePage.posts} newPostText={props.profilePage.newPostText} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
+      <MyPosts posts={props.profilePage.posts} newPostText={props.profilePage.newPostText} dispatch={props.dispatch}/>
     </div>
   );
 };
