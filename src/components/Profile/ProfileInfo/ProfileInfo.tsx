@@ -5,7 +5,7 @@ const ProfileInfo: React.FC = () => {
 	return (
 		<div>
 			<img
-				src='https://mywowo.net/media/images/cache/dubai_img_worlds_of_adventure_01_presentazione_jpg_1200_630_cover_85.jpg'
+				src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3EHqf4sCRw7OupIheEHLyp8LAislACRZz9LbULv5IXLvXUAWGJ76RvlonKwd4X2rvuw&usqp=CAU'
 				alt='some img'
 			/>
       <div className={s.descriptionBlock}>
