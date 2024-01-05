@@ -1,4 +1,4 @@
-import {SidebarType} from './store';
+import {SidebarType} from './redux-store';
 
 const initialState = {
     friends: [

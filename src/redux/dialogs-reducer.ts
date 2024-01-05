@@ -1,4 +1,6 @@
-import {ActionsTypes, DialogsPageType} from './store';
+import {ActionsTypes, MessageType} from './redux-store';
+import {DialogItemType} from '../components/Dialogs/DialogItem/DialogItem';
+
 
 const SEND_MESSAGE = 'SEND-MESSAGE'
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
@@ -18,6 +20,11 @@ const initialState = {
     {id: 4, message: 'Fine, bro'},
   ],
     newMessageBody: '',
+}
+type DialogsPageType = {
+  dialogs: DialogItemType[]
+  messages: MessageType[]
+  newMessageBody: string
 }
 const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
   switch (action.type) {

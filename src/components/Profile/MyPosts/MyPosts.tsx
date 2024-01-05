@@ -1,24 +1,22 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import Post, {PostType} from './Post/Post';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profile-reducer';
 
 export type MyPostsPropsType = {
+  updateNewPostText: (text: string) => void
+  addPost: () => void
   posts: PostType[],
   newPostText: string
-  dispatch: (action: any) => void
 }
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
   const messagesElements = props.posts
     .map(m => <Post key={m.id} id={m.id} message={m.message} likesCount={m.likesCount}/>)
-  const addPost = () => {
-    const action = addPostActionCreator()
-    props.dispatch(action)
+  const onAddPost = () => {
+    props.addPost()
   }
 
   const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const action = updateNewPostTextActionCreator(e.currentTarget.value)
-    props.dispatch(action)
+    props.updateNewPostText(e.currentTarget.value)
   }
   return (
     <div className={s.postsBlock}>
@@ -27,7 +25,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         <textarea value={props.newPostText}
                   onChange={onPostChange}
         >New post</textarea>
-        <button onClick={addPost}>Add post</button>
+        <button onClick={onAddPost}>Add post</button>
       </div>
       <div className={s.posts}>
         {messagesElements}

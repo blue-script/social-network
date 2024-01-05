@@ -8,7 +8,7 @@ import {AppRootStateType, store} from './redux/redux-store';
 export const rerenderEntireTree= (state: AppRootStateType) => {
   ReactDOM.render(
     <BrowserRouter>
-      <App state={state} dispatch={store.dispatch.bind(store)}/>
+      <App store={store}/>
     </BrowserRouter>,
     document.getElementById('root')
   );
