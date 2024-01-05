@@ -46,8 +46,8 @@ export type ActionsTypes = ReturnType<typeof sendMessageCreator> | ReturnType<ty
 
 export type RootStoreType = {
   _state: StateType
-  subscriber: (observer: (state: StateType) => void) => void
-  _callSubscriber: (state: StateType) => void
+  subscribe: (observer: (state: StateType) => void) => void
+  _callSubscribe: (state: StateType) => void
   getState: () => StateType
   dispatch: (action: ActionsTypes) => void
 }
@@ -61,8 +61,7 @@ export const store: RootStoreType = {
       ],
       newPostText:
         'Please, enter text',
-    }
-    ,
+    },
     dialogsPage: {
       dialogs: [
         {id: 1, name: 'Dimych'},
@@ -90,15 +89,15 @@ export const store: RootStoreType = {
     }
     ,
   },
-  _callSubscriber() {
+  _callSubscribe() {
     console.log('hi')
   },
 
   getState() {
     return this._state
   },
-  subscriber(observer) {
-    this._callSubscriber = observer
+  subscribe(observer) {
+    this._callSubscribe = observer
   },
 
   dispatch(action) {
@@ -106,6 +105,6 @@ export const store: RootStoreType = {
     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
     this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
-    this._callSubscriber(this._state)
+    this._callSubscribe(this._state)
   }
 }
