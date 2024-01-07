@@ -1,14 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
-import Post, {PostType} from './Post/Post';
+import Post from './Post/Post';
+import {MyPostsType} from './MyPostsContainer';
 
-export type MyPostsPropsType = {
-  updateNewPostText: (text: string) => void
-  addPost: () => void
-  posts: PostType[],
-  newPostText: string
-}
-const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+const MyPosts: React.FC<MyPostsType> = (props) => {
   const messagesElements = props.posts
     .map(m => <Post key={m.id} id={m.id} message={m.message} likesCount={m.likesCount}/>)
   const onAddPost = () => {
