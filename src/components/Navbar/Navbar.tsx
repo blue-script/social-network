@@ -14,6 +14,10 @@ const Navbar: React.FC = () => {
 					<NavLink activeClassName={s.activeLink} to='/dialogs'>Messages</NavLink>
 				</li>
 				<li className={s.item}>
+					<NavLink activeClassName={s.activeLink} to='/users'>Users</NavLink>
+				</li>
+
+				<li className={s.item}>
 					<NavLink activeClassName={s.activeLink} to='/news'>News</NavLink>
 				</li>
 				<li className={s.item}>
