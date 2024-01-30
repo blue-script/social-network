@@ -1,20 +1,12 @@
 import {ActionsTypes} from "./redux-store";
+import {UserType} from "../components/Users/Users"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
-export type UserType = {
-  id: number
-  photoUrl: string
-  followed: boolean
-  fullName: string
-  status: string
-  location: { city: string, country: string }
-}
-
 export type UsersPageType = {
-  users: Array<UserType>
+  users: UserType[]
 }
 
 const initialState: UsersPageType = {
