@@ -1,5 +1,5 @@
 import {ActionsTypes} from "./redux-store";
-import {UserType} from "../components/Users/Users"
+import {UserType} from "../components/Users/UsersFunctionalComponent"
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
