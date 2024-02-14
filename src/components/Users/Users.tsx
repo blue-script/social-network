@@ -2,6 +2,7 @@ import styles from "./users.module.css"
 import userPhoto from "../../assets/images/defaultUserPhoto.png"
 import React, {FC} from "react"
 import {UserType} from "./UsersContainer"
+import {NavLink} from "react-router-dom"
 
 type UsersPropsType = {
   totalUsersCount: number
@@ -16,7 +17,8 @@ type UsersPropsType = {
 const Users: FC<UsersPropsType> = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
   let pages = []
-  for (let i = 1; i <= pagesCount; i++) {
+  // for (let i = 1; i <= pagesCount; i++) {
+  for (let i = 1; i <= 10; i++) {
     pages.push(i)
   }
   return <div>
@@ -34,7 +36,10 @@ const Users: FC<UsersPropsType> = (props) => {
       props.users.map(u => <div key={u.id}>
         <span>
             <div>
-              <img src={u.photos.small ? u.photos.small : userPhoto} alt="avatar" className={styles.userPhoto}/>
+              <NavLink to={`/profile/${u.id}`}>
+                <img src={u.photos.small ? u.photos.small : userPhoto} alt="avatar"
+                            className={styles.userPhoto}/>
+              </NavLink>
             </div>
             <div>
               {

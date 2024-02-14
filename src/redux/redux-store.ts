@@ -1,14 +1,14 @@
 import {combineReducers, createStore} from 'redux'
-import profileReducer, {addPostActionCreator, updateNewPostTextActionCreator} from './profile-reducer'
+import profileReducer, {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "./profile-reducer"
 import dialogsReducer, {sendMessageCreator, updateNewMessageTextCreator} from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer'
 import usersReducer, {
-  followAC,
-  setCurrentPageAC,
-  setUsersAC,
-  setUsersTotalCountAC,
-  toggleIsFetchingAC,
-  unfollowAC
+  follow,
+  setCurrentPage,
+  setUsers,
+  setTotalUsersCount,
+  toggleIsFetching,
+  unfollow
 } from "./users-reducer"
 
 export type ActionsTypes =
@@ -16,12 +16,13 @@ export type ActionsTypes =
   | ReturnType<typeof updateNewMessageTextCreator>
   | ReturnType<typeof addPostActionCreator>
   | ReturnType<typeof updateNewPostTextActionCreator>
-  | ReturnType<typeof followAC>
-  | ReturnType<typeof unfollowAC>
-  | ReturnType<typeof setUsersAC>
-  | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof setUsersTotalCountAC>
-  | ReturnType<typeof toggleIsFetchingAC>
+  | ReturnType<typeof setUserProfile>
+  | ReturnType<typeof follow>
+  | ReturnType<typeof unfollow>
+  | ReturnType<typeof setUsers>
+  | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof setTotalUsersCount>
+  | ReturnType<typeof toggleIsFetching>
 
 export type StoreType = typeof store
 export type AppRootStateType = ReturnType<typeof rootReducer>

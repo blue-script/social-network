@@ -3,16 +3,14 @@ import {AppRootStateType} from "../../redux/redux-store"
 import {
   follow,
   setCurrentPage,
-  setUsers,
   setTotalUsersCount,
+  setUsers,
   toggleIsFetching,
   unfollow
 } from "../../redux/users-reducer"
-import {Dispatch} from "redux"
 import React from "react"
 import axios from "axios"
 import Users from "./Users"
-import preloader from "../../assets/images/preloader.svg"
 import Preloader from "../common/Preloader/Preloader"
 
 
