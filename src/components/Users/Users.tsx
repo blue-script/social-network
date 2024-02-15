@@ -3,7 +3,7 @@ import userPhoto from "../../assets/images/defaultUserPhoto.png"
 import React, {FC} from "react"
 import {UserType} from "./UsersContainer"
 import {NavLink} from "react-router-dom"
-import axios from "axios"
+import {followUnfollowAPI} from "../../api/api"
 
 type UsersPropsType = {
   totalUsersCount: number
@@ -15,11 +15,6 @@ type UsersPropsType = {
   follow: (userId: number) => void
 }
 
-type ResponsePropsType = {
-  resultCode: number
-  messages: string[]
-  data: {}
-}
 
 const Users: FC<UsersPropsType> = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -52,22 +47,14 @@ const Users: FC<UsersPropsType> = (props) => {
               {
                 u.followed
                   ? <button onClick={() => {
-                    axios.delete<ResponsePropsType>(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {
-                      withCredentials: true,
-                      headers: {"API-KEY": "099f27bc-5392-4dfc-b68c-8b66ed78d720"},
+                    followUnfollowAPI.unfollow(u.id).then(response => {
+                      if (response.data.resultCode === 0) props.unfollow(u.id)
                     })
-                      .then(response => {
-                        if (response.data.resultCode === 0) props.unfollow(u.id)
-                      })
                   }}>unfollow</button>
                   : <button onClick={() => {
-                    axios.post<ResponsePropsType>(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`,{}, {
-                      withCredentials: true,
-                      headers: {"API-KEY": "099f27bc-5392-4dfc-b68c-8b66ed78d720"},
+                    followUnfollowAPI.follow(u.id).then(response => {
+                      if (response.data.resultCode === 0) props.follow(u.id)
                     })
-                      .then(response => {
-                        if (response.data.resultCode === 0) props.follow(u.id)
-                      })
                   }}>follow</button>
               }
             </div>

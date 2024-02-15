@@ -1,17 +1,17 @@
 import React from "react"
 import Profile from "./Profile"
 import axios from "axios"
-import {UsersResponse} from "../Users/UsersContainer"
 import {connect} from "react-redux"
 import {ProfileType, setUserProfile} from "../../redux/profile-reducer"
 import {AppRootStateType} from "../../redux/redux-store"
 import {RouteComponentProps, withRouter} from "react-router-dom"
+import {UsersResponseType} from "../../api/api"
 
 class ProfileContainer extends React.Component<ProfilePropsType, ProfilePropsType> {
   componentDidMount() {
     let userId = this.props.match.params.userId
-    if (!userId) userId = '2'
-    axios.get<UsersResponse>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+    if (!userId) userId = "2"
+    axios.get<UsersResponseType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
       .then(response => {
         this.props.setUserProfile(response.data)
       })
