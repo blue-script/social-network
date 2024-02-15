@@ -7,7 +7,7 @@ import {ProfileType, setUserProfile} from "../../redux/profile-reducer"
 import {AppRootStateType} from "../../redux/redux-store"
 import {RouteComponentProps, withRouter} from "react-router-dom"
 
-class ProfileContainer extends React.Component<ProfilePropsType, any> {
+class ProfileContainer extends React.Component<ProfilePropsType, ProfilePropsType> {
   componentDidMount() {
     let userId = this.props.match.params.userId
     if (!userId) userId = '2'

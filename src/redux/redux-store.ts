@@ -10,6 +10,7 @@ import usersReducer, {
   toggleIsFetching,
   unfollow
 } from "./users-reducer"
+import authReducer, {setAuthUserData} from "./auth-reducer"
 
 export type ActionsTypes =
   ReturnType<typeof sendMessageCreator>
@@ -23,6 +24,7 @@ export type ActionsTypes =
   | ReturnType<typeof setCurrentPage>
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof toggleIsFetching>
+  | ReturnType<typeof setAuthUserData>
 
 export type StoreType = typeof store
 export type AppRootStateType = ReturnType<typeof rootReducer>
@@ -31,7 +33,8 @@ const rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sidebar: sidebarReducer,
-  usersPage: usersReducer
+  usersPage: usersReducer,
+  auth: authReducer,
 })
 export const store = createStore(rootReducer)
 
