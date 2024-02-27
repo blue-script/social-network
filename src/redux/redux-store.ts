@@ -1,43 +1,49 @@
-import {combineReducers, createStore} from 'redux'
-import profileReducer, {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "./profile-reducer"
+import {applyMiddleware, combineReducers, createStore} from 'redux'
+import profileReducer, {
+    addPostActionCreator,
+    setUserProfileSuccess,
+    updateNewPostTextActionCreator
+} from "./profile-reducer"
 import dialogsReducer, {sendMessageCreator, updateNewMessageTextCreator} from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer'
 import usersReducer, {
-  follow,
-  setCurrentPage,
-  setUsers,
-  setTotalUsersCount,
-  toggleIsFetching,
-  unfollow, toggleFollowingProgress
+    followSuccess,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleFollowingProgress,
+    toggleIsFetching,
+    unfollowSuccess
 } from "./users-reducer"
-import authReducer, {setAuthUserData} from "./auth-reducer"
+import authReducer, {setAuthUserDataSuccess} from "./auth-reducer"
+import thunkMiddleware from "redux-thunk";
 
 export type ActionsTypes =
-  ReturnType<typeof sendMessageCreator>
-  | ReturnType<typeof updateNewMessageTextCreator>
-  | ReturnType<typeof addPostActionCreator>
-  | ReturnType<typeof updateNewPostTextActionCreator>
-  | ReturnType<typeof setUserProfile>
-  | ReturnType<typeof follow>
-  | ReturnType<typeof unfollow>
-  | ReturnType<typeof setUsers>
-  | ReturnType<typeof setCurrentPage>
-  | ReturnType<typeof setTotalUsersCount>
-  | ReturnType<typeof toggleIsFetching>
-  | ReturnType<typeof setAuthUserData>
-  | ReturnType<typeof toggleFollowingProgress>
+    ReturnType<typeof sendMessageCreator>
+    | ReturnType<typeof updateNewMessageTextCreator>
+    | ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewPostTextActionCreator>
+    | ReturnType<typeof setUserProfileSuccess>
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleFollowingProgress>
+    | ReturnType<typeof setAuthUserDataSuccess>
 
 export type StoreType = typeof store
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 const rootReducer = combineReducers({
-  profilePage: profileReducer,
-  dialogsPage: dialogsReducer,
-  sidebar: sidebarReducer,
-  usersPage: usersReducer,
-  auth: authReducer,
+    profilePage: profileReducer,
+    dialogsPage: dialogsReducer,
+    sidebar: sidebarReducer,
+    usersPage: usersReducer,
+    auth: authReducer,
 })
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 // @ts-ignore
 window.store = store

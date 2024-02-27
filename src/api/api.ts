@@ -1,6 +1,7 @@
 import axios from "axios"
 import {UserType} from "../components/Users/UsersContainer"
 import {AuthType} from "../redux/auth-reducer"
+import {ProfileType} from "../redux/profile-reducer";
 
 export type UsersResponseType = {
   items: UserType[]
@@ -31,6 +32,12 @@ export const usersAPI = {
   getUsers(currentPage: number = 1, pageSize: number = 10) {
     return instance.get<UsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
       .then(response => response.data)
+  },
+  follow(userId: number) {
+    return instance.post<FollowResponseType>(`follow/${userId}`)
+  },
+  unfollow(userId: number) {
+    return instance.delete<FollowResponseType>(`follow/${userId}`)
   }
 }
 // me and follow unfollow
@@ -41,11 +48,8 @@ export const authAPI = {
   }
 }
 
-export const followUnfollowAPI = {
-  follow(id: number) {
-    return instance.post<FollowResponseType>(`follow/${id}`)
-  },
-  unfollow(id: number) {
-    return instance.delete<FollowResponseType>(`follow/${id}`)
+export const profileAPI = {
+  getProfile(userId: string) {
+    return instance.get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
   }
 }

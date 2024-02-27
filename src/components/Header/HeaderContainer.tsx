@@ -7,11 +7,7 @@ import {authAPI} from "../../api/api"
 
 class HeaderContainer extends React.Component<AuthPropsType, AuthPropsType> {
   componentDidMount() {
-    // this.props.toggleIsFetching(true)
-    authAPI.getMe().then(data => {
-      // this.props.toggleIsFetching(false)
-      this.props.setAuthUserData(data)
-    })
+    this.props.setAuthUserData()
   }
 
   render() {
@@ -31,9 +27,8 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
   login: state.auth.login
 })
 
-
 type MapDispatchPropsType = {
-  setAuthUserData: (data: AuthType) => void
+  setAuthUserData: () => void
 }
 
 export default connect(mapStateToProps, {setAuthUserData})(HeaderContainer)
