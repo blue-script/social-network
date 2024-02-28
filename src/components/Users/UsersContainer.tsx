@@ -4,6 +4,7 @@ import {follow, getUsers, setCurrentPage, toggleFollowingProgress, unfollow} fro
 import React from "react"
 import Users from "./Users"
 import Preloader from "../common/Preloader/Preloader"
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type UserType = {
     name: string
@@ -85,17 +86,13 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 //     follow: (userId: number) => {
 //       dispatch(followAC(userId))
 //     },
-//     unfollow: (userId: number) => {
-//       dispatch(unfollowAC(userId))
-//     },
-//     setCurrentPage: (pageNumber: number) => {
-//       dispatch(setCurrentPageAC(pageNumber))
-//     },
+//     ...
 //     toggleIsFetching: (isFetching: boolean) => {
 //       dispatch(toggleIsFetchingAC(isFetching))
 //     },
 //   }
 // }
 
-export default connect(mapStateToProps,
-    {follow, unfollow, setCurrentPage, getUsers})(UsersContainer)
+
+export default withAuthRedirect(connect(mapStateToProps,
+    {follow, unfollow, setCurrentPage, getUsers})(UsersContainer))
