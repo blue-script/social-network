@@ -27,14 +27,18 @@ const authReducer = (state: AuthType = initialState, action: ActionsTypes): Auth
     }
 }
 
-export const setAuthUserDataSuccess = (data: AuthType) => ({type: SET_USER_DATA, data}) as const
+export const setAuthUserData = (data: AuthType) => ({type: SET_USER_DATA, data}) as const
 
-export const setAuthUserData = () => (dispatch: Dispatch) => {
+export const getAuthUserData = () => (dispatch: Dispatch) => {
     // this.props.toggleIsFetching(true)
-    authAPI.getMe().then(data => {
-        // this.props.toggleIsFetching(false)
-        dispatch(setAuthUserDataSuccess(data))
-    })
+    authAPI.me()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                const data = response.data.data
+                // this.props.toggleIsFetching(false)
+                dispatch(setAuthUserData(data))
+            }
+        })
 }
 
 export default authReducer

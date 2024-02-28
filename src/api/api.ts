@@ -38,18 +38,15 @@ export const usersAPI = {
   },
   unfollow(userId: number) {
     return instance.delete<FollowResponseType>(`follow/${userId}`)
-  }
+  },
+  getProfile(userId: string) {
+    return instance.get<ProfileType>(`profile/${userId}`)
+  },
 }
 // me and follow unfollow
 
 export const authAPI = {
-  getMe() {
-    return instance.get<AuthResponseType>(`auth/me`).then(response => response.data.data)
-  }
-}
-
-export const profileAPI = {
-  getProfile(userId: string) {
-    return instance.get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+  me() {
+    return instance.get<AuthResponseType>(`auth/me`)
   }
 }
