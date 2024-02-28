@@ -5,6 +5,7 @@ import React from "react"
 import Users from "./Users"
 import Preloader from "../common/Preloader/Preloader"
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 export type UserType = {
     name: string
@@ -92,7 +93,5 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 //     },
 //   }
 // }
-
-
 export default withAuthRedirect(connect(mapStateToProps,
     {follow, unfollow, setCurrentPage, getUsers})(UsersContainer))
