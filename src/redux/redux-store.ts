@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import profileReducer, {
-    addPostActionCreator,
+    addPostActionCreator, getUserStatus, setStatus,
     setUserProfile,
     updateNewPostTextActionCreator
 } from "./profile-reducer"
@@ -32,6 +32,7 @@ export type ActionsTypes =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setStatus>
 
 export type StoreType = typeof store
 export type AppRootStateType = ReturnType<typeof rootReducer>

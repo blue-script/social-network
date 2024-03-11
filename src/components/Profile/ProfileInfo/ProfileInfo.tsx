@@ -4,7 +4,7 @@ import {ProfileType} from "../../../redux/profile-reducer"
 import Preloader from "../../common/Preloader/Preloader"
 import ProfileStatus from "./ProfileStatus";
 
-const ProfileInfo: React.FC<{ profile: ProfileType | null }> = (props) => {
+const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
   if (!props.profile) {
     return <Preloader/>
   }
@@ -16,10 +16,18 @@ const ProfileInfo: React.FC<{ profile: ProfileType | null }> = (props) => {
       {/*/>*/}
       <div className={s.descriptionBlock}>
         <img src={props.profile.photos.large} alt="photo user" style={{width: "200px", height: "200px"}}/>
-        <ProfileStatus status={'hello world'}/>
+        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
       </div>
     </div>
   )
 }
 
 export default ProfileInfo
+
+
+// types
+type ProfileInfoType = {
+    profile: ProfileType | null,
+    status: string,
+    updateStatus: (status: string) => void
+}
