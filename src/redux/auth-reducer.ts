@@ -14,7 +14,7 @@ const initialState: AuthType = {
     id: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: true
 }
 
 const authReducer = (state: AuthType = initialState, action: ActionsTypes): AuthType => {

@@ -1,6 +1,4 @@
-import s from "./ProfileInfo.module.css"
-import {ReactComponent} from "*.svg";
-import React, {ChangeEvent, LegacyRef} from "react";
+import React, {ChangeEvent} from "react";
 
 // types
 type ProfileStatusPropsType = {
@@ -33,6 +31,14 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileStatu
         this.setState({
             status: e.currentTarget.value
         })
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<ProfileStatusStateType>) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
     }
 
     render() {
