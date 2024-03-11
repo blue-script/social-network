@@ -23,7 +23,6 @@ export function withAuthRedirect<T>(Component: ComponentType<T>) {
     return connect(mapStateToProps)(RedirectComponent)
 }
 
-
 type mapStatePropsType = {
     isAuth: boolean
 }

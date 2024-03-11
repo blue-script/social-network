@@ -1,23 +1,11 @@
 import {connect} from "react-redux"
 import {AppRootStateType} from "../../redux/redux-store"
-import {follow, getUsers, setCurrentPage, toggleFollowingProgress, unfollow} from "../../redux/users-reducer"
+import {follow, getUsers, setCurrentPage, unfollow} from "../../redux/users-reducer"
 import React from "react"
 import Users from "./Users"
 import Preloader from "../common/Preloader/Preloader"
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-
-export type UserType = {
-    name: string
-    id: number
-    photos: {
-        small: null | string
-        large: null | string
-    }
-    status: null | string
-    followed: boolean
-}
-
 
 class UsersContainer extends React.Component<UsersPropsType, UserType[]> {
     // constructor(props: UsersPropsType) {
@@ -25,13 +13,6 @@ class UsersContainer extends React.Component<UsersPropsType, UserType[]> {
     // }
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
-        // dispatch(this.props.getUserThunkCreator(this.props.currentPage, this.props.pageSize))
-        // this.props.toggleIsFetching(true)
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //     this.props.toggleIsFetching(false)
-        //     this.props.setUsers(data.items)
-        //     this.props.setTotalUsersCount(data.totalCount)
-        // })
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -88,10 +69,24 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 //       dispatch(followAC(userId))
 //     },
 //     ...
-//     toggleIsFetching: (isFetching: boolean) => {
-//       dispatch(toggleIsFetchingAC(isFetching))
-//     },
 //   }
 // }
-export default withAuthRedirect(connect(mapStateToProps,
-    {follow, unfollow, setCurrentPage, getUsers})(UsersContainer))
+
+
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers})
+)(UsersContainer)
+
+
+//types
+export type UserType = {
+    name: string
+    id: number
+    photos: {
+        small: null | string
+        large: null | string
+    }
+    status: null | string
+    followed: boolean
+}
