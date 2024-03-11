@@ -1,4 +1,4 @@
-import {ActionsTypes} from './redux-store';
+import {StoreActionsTypes} from './redux-store';
 
 
 const SEND_MESSAGE = 'SEND-MESSAGE'
@@ -35,7 +35,7 @@ const initialState: DialogsPageType = {
     newMessageBody: '',
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: StoreActionsTypes): DialogsPageType => {
   switch (action.type) {
     case SEND_MESSAGE:
       return {

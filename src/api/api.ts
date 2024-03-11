@@ -15,10 +15,10 @@ export const usersAPI = {
             .then(response => response.data)
     },
     follow(userId: number) {
-        return instance.post<ResponseType>(`follow/${userId}`)
+        return instance.post<ResponseType<{}>>(`follow/${userId}`)
     },
     unfollow(userId: number) {
-        return instance.delete<ResponseType>(`follow/${userId}`)
+        return instance.delete<ResponseType<{}>>(`follow/${userId}`)
     },
     getProfile(userId: string) {
         console.warn('Obsolete method. Please profileAPI object.')
@@ -34,13 +34,16 @@ export const profileAPI = {
         return instance.get<string>(`profile/status/${userId}`)
     },
     updateStatus(status: string) {
-        return instance.put<ResponseType>(`profile/status/`, {status: status})
+        return instance.put<ResponseType<{}>>(`profile/status/`, {status: status})
     }
 }
 
 export const authAPI = {
     me() {
         return instance.get<AuthResponseType>(`auth/me`)
+    },
+    login(authData: AuthDataType) {
+        return instance.post('auth/login', authData)
     }
 }
 
@@ -57,8 +60,14 @@ export type AuthResponseType = {
     "fieldsErrors": string[]
     "resultCode": number
 }
-type ResponseType = {
+type ResponseType<T> = {
     resultCode: number
     messages: string[]
-    data: {}
+    data: T
+}
+export type AuthDataType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: boolean
 }

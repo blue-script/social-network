@@ -16,7 +16,7 @@ import usersReducer, {
     toggleIsFetching,
     unfollowSuccess
 } from "./users-reducer"
-import authReducer, {setAuthUserData} from "./auth-reducer"
+import authReducer, {setAuthorization, setAuthUserData} from "./auth-reducer"
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 
@@ -39,7 +39,7 @@ export default store
 //types
 export type StoreType = typeof store
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type ActionsTypes =
+export type StoreActionsTypes =
     ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof updateNewMessageTextCreator>
     | ReturnType<typeof addPostActionCreator>
@@ -54,3 +54,4 @@ export type ActionsTypes =
     | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof setAuthorization>

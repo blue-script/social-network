@@ -1,4 +1,4 @@
-import {ActionsTypes} from "./redux-store";
+import {StoreActionsTypes} from "./redux-store";
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {UserType} from "../components/Users/UsersContainer";
@@ -29,7 +29,7 @@ const initialState: UsersPageType = {
     followingInProgress: []
 }
 
-const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes): UsersPageType => {
+const usersReducer = (state: UsersPageType = initialState, action: StoreActionsTypes): UsersPageType => {
     switch (action.type) {
         case FOLLOW: {
             return {

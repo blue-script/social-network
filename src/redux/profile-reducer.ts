@@ -1,4 +1,4 @@
-import {ActionsTypes} from "./redux-store"
+import {StoreActionsTypes} from "./redux-store"
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
@@ -16,7 +16,7 @@ const initialState = {
     profile: null,
     status: ''
 }
-const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
+const profileReducer = (state: ProfilePageType = initialState, action: StoreActionsTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             return {

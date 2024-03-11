@@ -1,8 +1,9 @@
-import {ActionsTypes} from "./redux-store"
+import {StoreActionsTypes} from "./redux-store"
 import {Dispatch} from "redux";
-import {authAPI} from "../api/api";
+import {authAPI, AuthDataType} from "../api/api";
 
 const SET_USER_DATA = "SET-USER-DATA"
+const SET_AUTHORIZATION = "SET-AUTHORIZATION"
 
 export type AuthType = {
     id: number | null
@@ -17,10 +18,12 @@ const initialState: AuthType = {
     isAuth: false
 }
 
-const authReducer = (state: AuthType = initialState, action: ActionsTypes): AuthType => {
+const authReducer = (state: AuthType = initialState, action: StoreActionsTypes): AuthType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {...state, ...action.data, isAuth: true}
+        case SET_AUTHORIZATION:
+            return {...state, isAuth: true}
         default: {
             return state
         }
@@ -28,6 +31,7 @@ const authReducer = (state: AuthType = initialState, action: ActionsTypes): Auth
 }
 
 export const setAuthUserData = (data: AuthType) => ({type: SET_USER_DATA, data}) as const
+export const setAuthorization = (isAuth: boolean) => ({type: SET_AUTHORIZATION, isAuth} as const)
 
 export const getAuthUserData = () => (dispatch: Dispatch) => {
     // this.props.toggleIsFetching(true)
@@ -39,6 +43,13 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
                 dispatch(setAuthUserData(data))
             }
         })
+}
+export const checkAuthorization = (formData: AuthDataType) => (dispatch: Dispatch) => {
+    authAPI.login(formData).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthorization(true))
+        }
+    })
 }
 
 export default authReducer
