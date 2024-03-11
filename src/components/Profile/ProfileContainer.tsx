@@ -25,7 +25,7 @@ let mapStateToProps = (state: AppRootStateType): mapStatePropsType => ({
     profile: state.profilePage.profile,
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile}),
     withRouter,
     withAuthRedirect
