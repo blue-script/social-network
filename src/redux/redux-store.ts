@@ -1,6 +1,7 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import profileReducer, {
-    addPostActionCreator, getUserStatus, setStatus,
+    addPostActionCreator,
+    setStatus,
     setUserProfile,
     updateNewPostTextActionCreator
 } from "./profile-reducer"
@@ -17,7 +18,27 @@ import usersReducer, {
 } from "./users-reducer"
 import authReducer, {setAuthUserData} from "./auth-reducer"
 import thunkMiddleware from "redux-thunk";
+import {reducer as formReducer} from 'redux-form'
 
+const rootReducer = combineReducers({
+    profilePage: profileReducer,
+    dialogsPage: dialogsReducer,
+    sidebar: sidebarReducer,
+    usersPage: usersReducer,
+    auth: authReducer,
+    form: formReducer
+})
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+
+// @ts-ignore
+window.store = store
+
+export default store
+
+
+//types
+export type StoreType = typeof store
+export type AppRootStateType = ReturnType<typeof rootReducer>
 export type ActionsTypes =
     ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof updateNewMessageTextCreator>
@@ -33,20 +54,3 @@ export type ActionsTypes =
     | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setStatus>
-
-export type StoreType = typeof store
-export type AppRootStateType = ReturnType<typeof rootReducer>
-
-const rootReducer = combineReducers({
-    profilePage: profileReducer,
-    dialogsPage: dialogsReducer,
-    sidebar: sidebarReducer,
-    usersPage: usersReducer,
-    auth: authReducer,
-})
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
-
-// @ts-ignore
-window.store = store
-
-export default store
