@@ -2,10 +2,9 @@ import {applyMiddleware, combineReducers, createStore} from 'redux'
 import profileReducer, {
     addPostActionCreator,
     setStatus,
-    setUserProfile,
-    updateNewPostTextActionCreator
+    setUserProfile
 } from "./profile-reducer"
-import dialogsReducer, {sendMessageCreator, updateNewMessageTextCreator} from './dialogs-reducer'
+import dialogsReducer, {sendMessageCreator} from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer'
 import usersReducer, {
     followSuccess,
@@ -35,15 +34,12 @@ window.store = store
 
 export default store
 
-
 //types
 export type StoreType = typeof store
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type StoreActionsTypes =
     ReturnType<typeof sendMessageCreator>
-    | ReturnType<typeof updateNewMessageTextCreator>
     | ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>

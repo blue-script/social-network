@@ -2,7 +2,7 @@ import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {compose} from "redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {connect, useDispatch} from "react-redux";
+import {connect} from "react-redux";
 import {checkAuthorization} from "../../redux/auth-reducer";
 import {AuthDataType} from "../../api/api";
 
@@ -33,7 +33,6 @@ const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 const Login = (props: LoginPropsType) => {
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
         props.checkAuthorization({
             email: formData.login,
             password: formData.password,

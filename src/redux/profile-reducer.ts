@@ -3,7 +3,6 @@ import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST"
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const SET_USER_PROFILE = "SET-USER-PROFILE"
 const SET_STATUS = "SET-STATUS"
 
@@ -12,7 +11,6 @@ const initialState = {
         {id: 1, message: "Hi, how are you?", likesCount: 12},
         {id: 2, message: "It's my first post", likesCount: 11}
     ],
-    newPostText: "Please, enter text",
     profile: null,
     status: ''
 }
@@ -21,17 +19,15 @@ const profileReducer = (state: ProfilePageType = initialState, action: StoreActi
         case ADD_POST:
             return {
                 ...state,
-                newPostText: "",
-                posts: [...state.posts,
+                posts: [
                     {
                         id: state.posts.length + 1,
-                        message: state.newPostText,
+                        message: action.newPostText,
                         likesCount: 0
-                    }
+                    },
+                    ...state.posts
                 ]
             }
-        case UPDATE_NEW_POST_TEXT:
-            return {...state, newPostText: action.postText}
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         case SET_STATUS:
@@ -41,8 +37,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: StoreActi
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST}) as const
-export const updateNewPostTextActionCreator = (text: string) => ({type: UPDATE_NEW_POST_TEXT, postText: text}) as const
+export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText}) as const
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setStatus = (userId: string) => ({type: SET_STATUS, userId}) as const
 
@@ -95,7 +90,6 @@ export type ProfileType = {
 }
 export type ProfilePageType = {
     posts: PostType[]
-    newPostText: string
     profile: ProfileType | null
     status: string
 }

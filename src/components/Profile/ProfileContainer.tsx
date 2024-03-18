@@ -3,7 +3,7 @@ import Profile from "./Profile"
 import {connect} from "react-redux"
 import {getUserProfile, getUserStatus, ProfileType, updateStatus} from "../../redux/profile-reducer"
 import {AppRootStateType} from "../../redux/redux-store"
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom"
+import {RouteComponentProps, withRouter} from "react-router-dom"
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -32,7 +32,7 @@ let mapStateToProps = (state: AppRootStateType): mapStatePropsType => ({
 })
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getUserStatus,updateStatus}),
+    connect(mapStateToProps, {getUserProfile, getUserStatus, updateStatus}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
