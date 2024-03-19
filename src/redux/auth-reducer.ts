@@ -39,7 +39,7 @@ export const setAuthUserData = (data: AuthType, isAuth: boolean = false) => ({
 export const setAuthorization = (isAuth: boolean) => ({type: SET_AUTHORIZATION, isAuth} as const)
 
 export const getAuthUserData = () => (dispatch: Dispatch) => {
-    authAPI.me()
+    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 const data = response.data.data

@@ -3,8 +3,6 @@ import userPhoto from "../../assets/images/defaultUserPhoto.png"
 import React, {FC} from "react"
 import {UserType} from "./UsersContainer"
 import {NavLink} from "react-router-dom"
-import {usersAPI} from "../../api/api";
-import {follow} from "../../redux/users-reducer";
 
 
 type UsersPropsType = {

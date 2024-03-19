@@ -18,6 +18,7 @@ import usersReducer, {
 import authReducer, {setAuthorization, setAuthUserData} from "./auth-reducer"
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
+import appReducer, {initializedSuccess} from "./app-reducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 })
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
@@ -51,3 +53,4 @@ export type StoreActionsTypes =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof setAuthorization>
+    | ReturnType<typeof initializedSuccess>
