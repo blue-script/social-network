@@ -1,6 +1,7 @@
-import {StoreActionsTypes} from "./redux-store"
-import {Dispatch} from "redux";
+import {AppRootStateType, StoreActionsTypes} from "./redux-store"
+import {AnyAction, Dispatch} from "redux";
 import {authAPI, AuthDataType} from "../api/api";
+import {ThunkDispatch} from "redux-thunk";
 
 const SET_USER_DATA = "SET-USER-DATA"
 const SET_AUTHORIZATION = "SET-AUTHORIZATION"
@@ -21,7 +22,7 @@ const initialState: AuthType = {
 const authReducer = (state: AuthType = initialState, action: StoreActionsTypes): AuthType => {
     switch (action.type) {
         case SET_USER_DATA:
-            return {...state, ...action.data, isAuth: true}
+            return {...state, ...action.payload}
         case SET_AUTHORIZATION:
             return {...state, isAuth: true}
         default: {
@@ -30,24 +31,32 @@ const authReducer = (state: AuthType = initialState, action: StoreActionsTypes):
     }
 }
 
-export const setAuthUserData = (data: AuthType) => ({type: SET_USER_DATA, data}) as const
+export const setAuthUserData = (data: AuthType, isAuth: boolean = false) => ({
+    type: SET_USER_DATA,
+    payload: {...data, isAuth}
+}) as const
 export const setAuthorization = (isAuth: boolean) => ({type: SET_AUTHORIZATION, isAuth} as const)
 
 export const getAuthUserData = () => (dispatch: Dispatch) => {
-    // this.props.toggleIsFetching(true)
     authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 const data = response.data.data
-                // this.props.toggleIsFetching(false)
-                dispatch(setAuthUserData(data))
+                dispatch(setAuthUserData(data, true))
             }
         })
 }
-export const checkAuthorization = (formData: AuthDataType) => (dispatch: Dispatch) => {
+export const login = (formData: AuthDataType) => (dispatch: ThunkDispatch<AppRootStateType, any, AnyAction>) => {
     authAPI.login(formData).then(response => {
         if (response.data.resultCode === 0) {
-            dispatch(setAuthorization(true))
+            dispatch(getAuthUserData())
+        }
+    })
+}
+export const logout = () => (dispatch: ThunkDispatch<AppRootStateType, any, AnyAction>) => {
+    authAPI.logout().then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch((setAuthUserData({id: null, email: null, login: null, isAuth: false})))
         }
     })
 }
