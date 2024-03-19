@@ -2,6 +2,7 @@ import {AppRootStateType, StoreActionsTypes} from "./redux-store"
 import {AnyAction, Dispatch} from "redux";
 import {authAPI, AuthDataType} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET-USER-DATA"
 const SET_AUTHORIZATION = "SET-AUTHORIZATION"
@@ -50,6 +51,9 @@ export const login = (formData: AuthDataType) => (dispatch: ThunkDispatch<AppRoo
     authAPI.login(formData).then(response => {
         if (response.data.resultCode === 0) {
             dispatch(getAuthUserData())
+        } else {
+            const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+            dispatch(stopSubmit("login", {_error: message}))
         }
     })
 }

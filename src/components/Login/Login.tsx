@@ -8,6 +8,7 @@ import {AuthDataType} from "../../api/api";
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {Redirect} from "react-router-dom";
+import styles from "../common/FormsControls/FormsControls.module.css"
 
 type FormDataType = {
     email: string
@@ -38,6 +39,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                    type="checkbox"
             />remember me
         </div>
+        {props.error && <div className={styles.formSummaryError}>
+            {props.error}
+        </div>}
         <div>
             <button>Log In</button>
         </div>
