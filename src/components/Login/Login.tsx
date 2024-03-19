@@ -5,6 +5,8 @@ import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {checkAuthorization} from "../../redux/auth-reducer";
 import {AuthDataType} from "../../api/api";
+import {FormControl} from "../common/FormsControls/FormsControls";
+import {required} from "../../utils/validators/validators";
 
 type FormDataType = {
     login: string
@@ -15,13 +17,26 @@ type FormDataType = {
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field component="input" name="login" placeholder="Login"/>
+            <Field component={FormControl}
+                   type='input'
+                   name="login"
+                   placeholder="Login"
+                   validate={[required]}
+            />
         </div>
         <div>
-            <Field component="input" name="password" placeholder="Password"/>
+            <Field component={FormControl}
+                   type='input'
+                   name="password"
+                   placeholder="Password"
+                   validate={[required]}
+            />
         </div>
         <div>
-            <Field component="input" name="rememberMe" type="checkbox"/> remember me
+            <Field component={FormControl}
+                   name="rememberMe"
+                   type="checkbox"
+            />remember me
         </div>
         <div>
             <button>Log In</button>
@@ -33,6 +48,8 @@ const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 const Login = (props: LoginPropsType) => {
     const onSubmit = (formData: FormDataType) => {
+        console.dir(formData)
+
         props.checkAuthorization({
             email: formData.login,
             password: formData.password,
