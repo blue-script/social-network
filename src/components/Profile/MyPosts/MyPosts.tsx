@@ -6,7 +6,9 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
-const MyPosts: React.FC<MyPostsType> = (props) => {
+const MyPosts = React.memo((props: MyPostsType) =>{
+    console.log("render MyPosts")
+
     const messagesElements = props.posts
         .map(m => <Post key={m.id} id={m.id} message={m.message} likesCount={m.likesCount}/>)
 
@@ -16,14 +18,14 @@ const MyPosts: React.FC<MyPostsType> = (props) => {
 
     return (
         <div className={s.postsBlock}>
-            My post
+            <h3>My post</h3>
             <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div className={s.posts}>
                 {messagesElements}
             </div>
         </div>
     );
-};
+})
 
 const maxLength10 = maxLengthCreator(10)
 
