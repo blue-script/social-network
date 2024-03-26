@@ -3,6 +3,7 @@ import s from "./ProfileInfo.module.css"
 import {ProfileType} from "../../../redux/profile-reducer"
 import Preloader from "../../common/Preloader/Preloader"
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
   if (!props.profile) {
@@ -16,7 +17,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = (props) => {
       {/*/>*/}
       <div className={s.descriptionBlock}>
         <img src={props.profile.photos.large} alt="photo user" style={{width: "200px", height: "200px"}}/>
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+        <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
       </div>
     </div>
   )
