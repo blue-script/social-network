@@ -20,10 +20,10 @@ export const usersAPI = {
     unfollow(userId: number) {
         return instance.delete<ResponseType<{}>>(`follow/${userId}`)
     },
-    getProfile(userId: string) {
-        console.warn('Obsolete method. Please profileAPI object.')
-        return profileAPI.getProfile(userId)
-    },
+    // getProfile(userId: string) {
+    //     console.warn('Obsolete method. Please profileAPI object.')
+    //     return profileAPI.getProfile(userId)
+    // },
 }
 
 export const profileAPI = {
@@ -63,7 +63,7 @@ export type AuthResponseType = {
     "fieldsErrors": string[]
     "resultCode": number
 }
-type ResponseType<T> = {
+export type ResponseType<T> = {
     resultCode: number
     messages: string[]
     data: T
