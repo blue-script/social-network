@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux'
 import profileReducer, {
-    addPostActionCreator,
+    addPostActionCreator, deletePost,
     setStatus,
     setUserProfile
 } from "./profile-reducer"
@@ -54,3 +54,4 @@ export type StoreActionsTypes =
     | ReturnType<typeof setStatus>
     | ReturnType<typeof setAuthorization>
     | ReturnType<typeof initializedSuccess>
+    | ReturnType<typeof deletePost>

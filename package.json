@@ -79,5 +79,10 @@
     "eslint-plugin-storybook": "^0.6.15",
     "prop-types": "15.8.1",
     "webpack": "5.89.0"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-leaflet|@react-leaflet|d3-*|axios))"
+    ]
   }
 }
