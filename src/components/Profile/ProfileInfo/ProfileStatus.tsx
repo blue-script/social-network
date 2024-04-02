@@ -52,11 +52,11 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileStatu
 export default ProfileStatus
 
 // types
-type ProfileStatusPropsType = {
+export type ProfileStatusPropsType = {
     status: string
     updateStatus: (status: string) => void
 }
-type ProfileStatusStateType = {
+export type ProfileStatusStateType = {
     editMode: boolean
     status: string
 }
