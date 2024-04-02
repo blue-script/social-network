@@ -18,8 +18,8 @@ type UsersPropsType = {
 
 const Users: FC<UsersPropsType> = ({currentPage, pageSize, totalUsersCount, onPageChanged, users, ...props}) => {
     return <div>
-        <Paginator currentPage={currentPage} pageSize={pageSize} totalUsersCount={totalUsersCount}
-                   onPageChanged={onPageChanged}/>
+        <Paginator currentPage={currentPage} pageSize={pageSize} totalItemsCount={totalUsersCount}
+                   onPageChanged={onPageChanged} />
         <div>
             {
                 users.map(u => <User key={u.id}
