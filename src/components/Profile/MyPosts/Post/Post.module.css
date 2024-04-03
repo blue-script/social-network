@@ -1,5 +1,12 @@
 .item {
-    color: #fff;
+    padding: 0 20px;
+    margin: 20px 0;
+    color: #6d6e71;
+    background-color: #ebebee;
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    min-height: 60px;
 }
 
 .item img {

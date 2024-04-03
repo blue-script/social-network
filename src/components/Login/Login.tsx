@@ -1,5 +1,5 @@
 import React from 'react'
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {compose} from "redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
@@ -9,6 +9,7 @@ import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {Redirect} from "react-router-dom";
 import styles from "../common/FormsControls/FormsControls.module.css"
+import s from "./Login.module.css"
 
 type FormDataType = {
     email: string
@@ -17,15 +18,15 @@ type FormDataType = {
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
-    return <form onSubmit={handleSubmit}>
-            {createField("Email", "email", [required], Input)}
-            {createField("Password", "password", [required], Input, {type: "password"})}
-            {createField("", "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
+    return <form className={s.formContainer} onSubmit={handleSubmit}>
+        {createField("Email", "email", [required], Input)}
+        {createField("Password", "password", [required], Input, {type: "password"})}
+        {createField("", "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
         {error && <div className={styles.formSummaryError}>
             {error}
         </div>}
         <div>
-            <button>Log In</button>
+            <button className={s.button}>Log In</button>
         </div>
     </form>
 }
@@ -45,9 +46,11 @@ const Login: React.FC<LoginPropsType> = (props) => {
         return <Redirect to={'/profile'}/>
     }
 
-    return <div>
-        <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+    return <div className={s.container}>
+        <div className={s.wrapperForm}>
+            <h1>Login</h1>
+            <LoginReduxForm onSubmit={onSubmit}/>
+        </div>
     </div>
 }
 

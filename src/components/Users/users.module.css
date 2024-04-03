@@ -1,3 +1,14 @@
+.container {
+    margin-top: 10px;
+}
+
+.userContainer {
+    padding: 20px 80px;
+    border-top: 1px solid #f1f2f2;
+    border-bottom: 1px solid #f1f2f2;
+    margin-bottom: 20px;
+}
+
 .userPhoto {
     object-fit: cover;
     width: 100px;
@@ -7,4 +18,42 @@
 
 .selectedPage {
     font-weight: bold;
+}
+
+.button {
+    background: #27aae1;
+    padding: 7px 25px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    outline: none;
+    border-radius: 30px;
+}
+
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.userName {
+    color: #27aae1;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.userStatus {
+    margin-bottom: 10px;
+    line-height: 26px;
+    color: #6d6e71;
+    font-size: 13px;
 }

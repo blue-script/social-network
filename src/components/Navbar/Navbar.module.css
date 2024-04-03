@@ -1,7 +1,6 @@
 .nav {
     grid-area: n;
-    background-color: #535c69;
-    border: 2px solid #e85bf3;
+    background-color: #ffffff;
 }
 
 .nav ul {
@@ -10,11 +9,19 @@
     padding: 20px;
 }
 
+.nav ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f2f2;
+}
+
 .item a {
-    color: #ABB2BF;
+    color: #6d6e71;
     text-decoration: none;
+}
+.item a:hover {
+    color: #a2b785;
 }
 
 .item .activeLink {
-    color: #C778DD;
+    color: #8dc63f;
 }

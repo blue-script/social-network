@@ -1,14 +1,16 @@
 import React from 'react';
+import defaultIcon from "../../../assets/images/defaultUserPhoto.png"
+import s from "../Friends.module.css"
 
-export type FriendType = {
-  id: number
-  name: string
-}
 export const Friend: React.FC<FriendType> = (props) => {
-  return <div style={{padding: '5px'}}>
-    <img
-      src='https://www.transparentpng.com/thumb/human/black-human-user-profile-png-icon-free-fsR5FT.png'
-      alt='' style={{borderRadius: '50%', width: '30px', height: '30px'}}/>
-    <div>{props.name}</div>
-  </div>
+    return <div className={s.friendContainer}>
+        <img src={defaultIcon} alt=''/>
+        <div>{props.name}</div>
+    </div>
+}
+
+// types
+export type FriendType = {
+    id: number
+    name: string
 }

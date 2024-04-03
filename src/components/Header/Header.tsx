@@ -7,11 +7,11 @@ import {AuthPropsType} from "./HeaderContainer"
 const Header: React.FC<AuthPropsType> = (props) => {
   return (
     <header className={s.header}>
-      <img src={logo} alt=""/>
+        <div className={s.logo}><img src={logo} alt=""/><span>Social</span></div>
       <div className={s.loginBlock}>
         {
           props.isAuth
-            ? <div>{props.login} - <button onClick={props.logout}>log out</button></div>
+            ? <div><span>{props.login}</span>  <button className={s.button} onClick={props.logout}>log out</button></div>
             : <NavLink to="/login">Login</NavLink>
         }
       </div>

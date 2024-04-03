@@ -1,17 +1,43 @@
 .header {
   grid-area: h;
-  background-color: #535c69;
-  border: 2px solid #e85bf3;
+  background-color: #231F20;;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
 }
-
-.header img {
+.header span {
+  color: #fff !important;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo img {
   width: 20px;
+  margin-right: 5px;
 }
 
 .loginBlock {
-  float: right;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+.loginBlock>div>span {
+  margin-right: 20px;
+  font-size: 15px;
 }
 
-.loginBlock a {
-  color: white;
+.loginBlock a{
+  color: #fff;
+  text-decoration: none;
+}
+.loginBlock a:hover{
+  color: #504f4f;
+}
+
+.button {
+  background-color: #ffffff33;
+  color: #ffffff;
 }

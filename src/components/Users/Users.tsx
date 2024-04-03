@@ -2,7 +2,7 @@ import React, {FC} from "react"
 import {UserType} from "./UsersContainer"
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
-
+import s from "./users.module.css"
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -17,9 +17,9 @@ type UsersPropsType = {
 
 
 const Users: FC<UsersPropsType> = ({currentPage, pageSize, totalUsersCount, onPageChanged, users, ...props}) => {
-    return <div>
+    return <div className={s.container}>
         <Paginator currentPage={currentPage} pageSize={pageSize} totalItemsCount={totalUsersCount}
-                   onPageChanged={onPageChanged} />
+                   onPageChanged={onPageChanged}/>
         <div>
             {
                 users.map(u => <User key={u.id}

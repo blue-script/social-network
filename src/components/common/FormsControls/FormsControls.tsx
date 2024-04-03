@@ -28,7 +28,7 @@ const FormControl: React.FC<WrappedFieldProps> = (
 }
 
 export const createField = (placeholder: string, name: string, validate: Partial<ValidatorsType>[], component: FunctionComponent<WrappedFieldProps>, props: object = {}, text: string = '') => (
-    <div>
+    <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
         <Field placeholder={placeholder}
                name={name}
                validate={validate}
