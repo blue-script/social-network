@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Post.module.css'
+import defaultIcon from '../../../../assets/images/defaultUserPhoto.png'
 
 export type PostType = {
   id: number
@@ -10,7 +11,7 @@ const Post: React.FC<PostType> = (props) => {
   return (
     <div className={s.item}>
       <img
-        src="https://www.transparentpng.com/thumb/human/black-human-user-profile-png-icon-free-fsR5FT.png"
+        src={defaultIcon}
         alt=""/>
       {props.message}
       <div>
