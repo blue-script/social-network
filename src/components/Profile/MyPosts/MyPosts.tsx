@@ -30,11 +30,13 @@ const MyPosts = React.memo((props: MyPostsType) =>{
 const maxLength10 = maxLengthCreator(10)
 
 export const AddNewPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+
     return <form className={s.formContainer} onSubmit={props.handleSubmit}>
         <Field component={Textarea}
                name="newPostText"
                placeholder="Post message"
-               validate={[required, maxLength10]}
+               value=""
+               validate={[maxLength10]}
         />
         <button className={s.button}>Add post</button>
     </form>

@@ -6,6 +6,7 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import defaultPhoto from "../../../assets/images/defaultUserPhoto.png"
 import ProfileDataForm, {ProfileDataFormProps} from "./ProfileDataForm";
 import {ProfileRequestType} from "../../../api/api";
+import check from "../../../assets/images/checked.png"
 
 type Props = {
     profile: ProfileType | null,
@@ -38,6 +39,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     return (
         <div>
             <div className={s.descriptionBlock}>
+
                 <img className={s.mainPhoto} src={profile.photos.large || defaultPhoto} alt="photo user"/>
                 {isOwner && <>
                     <label htmlFor="files" className={s.lableUploader}>Select Photo</label>
@@ -52,12 +54,14 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
 
-            <div className={s.profileDataContainer}>{editMode
-                ? <ProfileDataForm initialValues={profile} onSubmit={onSubmit} profile={profile}/>
-                : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
-                    setEditMode(true)
-                }}/>
-            }</div>
+            <div className={s.profileDataContainer}>
+                <h3 className={s.title}>Personal Information</h3>
+                {editMode
+                    ? <ProfileDataForm initialValues={profile} onSubmit={onSubmit} profile={profile}/>
+                    : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
+                        setEditMode(true)
+                    }}/>
+                }</div>
         </div>
     )
 }
@@ -71,22 +75,27 @@ const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataProps) => {
     return (
         <div>
             {isOwner && <div>
-                <button onClick={goToEditMode}>edit</button>
+                <button className={s.button} onClick={goToEditMode}>edit</button>
             </div>}
             <div>
+                <img className={s.check} src={check} alt="check"/>
                 <b>Full name:</b> {profile.fullName}
             </div>
             <div>
+                <img className={s.check} src={check} alt="check"/>
                 <b>Looking for a job:</b> {profile.lookingForAJob ? 'yes' : 'no'}
             </div>
             {profile.lookingForAJob &&
                 <div>
+                    <img className={s.check} src={check} alt="check"/>
                     <b>My professional skills:</b> {profile.lookingForAJobDescription}
                 </div>}
             <div>
+                <img className={s.check} src={check} alt="check"/>
                 <b>About me:</b> {profile.aboutMe}
             </div>
             <div>
+                <img className={s.check} src={check} alt="check"/>
                 <b>Contacts:</b> {Object.keys(profile.contacts).map((key: string) => {
                 return <Contact key={key} contactTitle={key}
                                 contactValue={profile.contacts[key as keyof typeof profile.contacts]}/>

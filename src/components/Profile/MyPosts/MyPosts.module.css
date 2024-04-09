@@ -35,5 +35,9 @@
     outline: none;
     border-radius: 30px;
 }
+.button:hover {
+    background: #6dc5ea;
+    cursor: pointer;
+}
 
 .posts {}
