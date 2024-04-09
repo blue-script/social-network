@@ -19,6 +19,11 @@ type FormDataType = {
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return <form className={s.formContainer} onSubmit={handleSubmit}>
+        <div className={s.testData}>
+            <h4>Test account details:</h4>
+            <span>Email: free@samuraijs.com</span>
+            <span>Password: free</span>
+        </div>
         {createField("Email", "email", [required], Input)}
         {createField("Password", "password", [required], Input, {type: "password"})}
         {createField("", "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
