@@ -20,10 +20,6 @@ export const usersAPI = {
     unfollow(userId: number) {
         return instance.delete<ResponseType<{}>>(`follow/${userId}`)
     },
-    // getProfile(userId: string) {
-    //     console.warn('Obsolete method. Please profileAPI object.')
-    //     return profileAPI.getProfile(userId)
-    // },
 }
 
 export const profileAPI = {
@@ -35,6 +31,13 @@ export const profileAPI = {
     },
     updateStatus(status: string) {
         return instance.put<ResponseType<{}>>(`profile/status/`, {status: status})
+    },
+    savePhoto(photoFile: File) {
+        const formData = new FormData();
+        formData.append("image", photoFile);
+        return instance.put<ResponseType<{ photos: {small: string, large: string} }>>(`profile/photo`, formData,
+            {headers: {'Content-Type': 'multipart/form-data'}}
+        )
     }
 }
 

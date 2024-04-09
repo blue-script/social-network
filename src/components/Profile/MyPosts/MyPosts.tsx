@@ -7,7 +7,6 @@ import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
 const MyPosts = React.memo((props: MyPostsType) =>{
-    console.log("render MyPosts")
 
     const messagesElements = [...props.posts]
         .reverse()
