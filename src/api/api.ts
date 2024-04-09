@@ -1,7 +1,7 @@
 import axios from "axios"
 import {UserType} from "../components/Users/UsersContainer"
 import {AuthType} from "../redux/auth-reducer"
-import {ProfileType} from "../redux/profile-reducer";
+import {ContactsType, ProfileType, saveProfile} from "../redux/profile-reducer";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -38,6 +38,9 @@ export const profileAPI = {
         return instance.put<ResponseType<{ photos: {small: string, large: string} }>>(`profile/photo`, formData,
             {headers: {'Content-Type': 'multipart/form-data'}}
         )
+    },
+    saveProfile(profile: Partial<ProfileRequestType>) {
+        return instance.put<ResponseType<{}>>(`profile`, profile)
     }
 }
 
@@ -81,4 +84,12 @@ export type LoginDataType = {
     id: number
     login: string
     email: string
+}
+export type ProfileRequestType = {
+    aboutMe: string
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
 }

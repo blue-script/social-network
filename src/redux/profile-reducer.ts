@@ -1,6 +1,8 @@
-import {StoreActionsTypes} from "./redux-store"
-import {Dispatch} from "redux";
-import {profileAPI} from "../api/api";
+import {AppRootStateType, StoreActionsTypes} from "./redux-store"
+import {AnyAction, Dispatch} from "redux";
+import {profileAPI, ProfileRequestType} from "../api/api";
+import {ThunkDispatch} from "redux-thunk";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = "profile/ADD-POST"
 const SET_USER_PROFILE = "profile/SET-USER-PROFILE"
@@ -72,9 +74,28 @@ export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
+export const saveProfile = (profile: Partial<ProfileRequestType>) => async (dispatch: ThunkDispatch<AppRootStateType, any, AnyAction>, getState: () => AppRootStateType) => {
+    const userId = getState().auth.id
+    const response = await profileAPI.saveProfile(profile)
+    if (response.data.resultCode === 0 && userId) {
+        dispatch(getUserProfile(userId.toString()))
+    } else {
+        const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+        const matches = message.match(/\((.*?)\)/)
+        if (matches && matches.length > 1) {
+            const parsedString = matches[1];
+            const [contacts, social] = parsedString.toLowerCase().split('->');
+            const mes = message.slice(0, matches.index).trim()
+
+            dispatch(stopSubmit("edit-profile", {[contacts]: {[social]: mes}}))
+        } else {
+            dispatch(stopSubmit("edit-profile", {_error: message}))
+        }
+        return Promise.reject(message)
+    }
+}
 
 export default profileReducer
-
 
 // types
 export type PostType = {
@@ -84,16 +105,7 @@ export type PostType = {
 }
 export type ProfileType = {
     aboutMe: string
-    contacts: {
-        facebook: string
-        website: string
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: string
-        github: string
-        mainLink: string
-    },
+    contacts: ContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -102,6 +114,16 @@ export type ProfileType = {
         small: string
         large: string
     }
+}
+export type ContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
 }
 export type ProfilePageType = {
     posts: PostType[]
