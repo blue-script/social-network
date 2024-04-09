@@ -26,7 +26,17 @@ const Paginator: FC<PaginatorPropsType> = ({totalItemsCount, pageSize, currentPa
     return (
         <div className={style.container}>
             {portionNumber > 1 &&
-            <button onClick={()=>{setPortionNumber(portionNumber-1)}}>PREV</button> }
+                <>
+                    <button onClick={() => {
+                        setPortionNumber(1)
+                    }}>&lt;&lt;
+                    </button>
+
+                    <button onClick={() => {
+                        setPortionNumber(portionNumber - 1)
+                    }}>PREV
+                    </button>
+                </> }
 
             {pages
                 .filter(p=> p>= leftPortiionPageNumber && p <= rightPortionPageNumber)
@@ -40,7 +50,16 @@ const Paginator: FC<PaginatorPropsType> = ({totalItemsCount, pageSize, currentPa
             })}
 
             {portionCount > portionNumber &&
-            <button onClick={()=>{setPortionNumber(portionNumber+1)}}>NEXT</button>}
+                <>
+                    <button onClick={() => {
+                        setPortionNumber(portionNumber + 1)
+                    }}>NEXT
+                    </button>
+                    <button onClick={() => {
+                        setPortionNumber(portionCount)
+                    }}>&gt;&gt;
+                    </button>
+                </>}
         </div>
     )
 }
