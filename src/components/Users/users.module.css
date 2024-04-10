@@ -30,6 +30,10 @@
     outline: none;
     border-radius: 30px;
 }
+.button:hover {
+    cursor: pointer;
+    background: #79c5e5;
+}
 
 .about {
     display: flex;
