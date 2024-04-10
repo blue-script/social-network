@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react"
+import React, {ChangeEvent, useRef, useState} from "react"
 import s from "./ProfileInfo.module.css"
 import {ProfileType} from "../../../redux/profile-reducer"
 import Preloader from "../../common/Preloader/Preloader"
@@ -7,6 +7,7 @@ import defaultPhoto from "../../../assets/images/defaultUserPhoto.png"
 import ProfileDataForm, {ProfileDataFormProps} from "./ProfileDataForm";
 import {ProfileRequestType} from "../../../api/api";
 import check from "../../../assets/images/checked.png"
+import cn from "classnames";
 
 type Props = {
     profile: ProfileType | null,
@@ -19,15 +20,10 @@ type Props = {
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}: Props) => {
     const [editMode, setEditMode] = useState<boolean>(false)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     if (!profile) {
         return <Preloader/>
-    }
-
-    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target?.files?.length) {
-            savePhoto(e.target.files[0])
-        }
     }
 
     const onSubmit = (formData: ProfileDataFormProps) => {
@@ -36,18 +32,28 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
         })
     }
 
+    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            savePhoto(e.target.files[0])
+        }
+    }
+
+    const selectFileHandler = () => {
+        inputRef && inputRef.current?.click()
+    }
+
     return (
         <div>
             <div className={s.descriptionBlock}>
 
-                <img className={s.mainPhoto} src={profile.photos.large || defaultPhoto} alt="photo user"/>
+                <img onClick={selectFileHandler} className={cn(s.mainPhoto, {[s.ownerMainPhoto]: isOwner})}
+                     src={profile.photos.large || defaultPhoto} alt="photo user"/>
                 {isOwner && <>
-                    <label htmlFor="files" className={s.lableUploader}>Select Photo</label>
-                    <input id="files"
-                           className={s.uploader}
+                    <input className={s.uploader}
                            type="file"
-                           onChange={onMainPhotoSelected}
+                           onChange={uploadHandler}
                            accept="image/*"
+                           ref={inputRef}
                     />
                 </>}
 

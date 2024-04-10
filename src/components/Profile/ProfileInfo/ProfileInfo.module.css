@@ -19,6 +19,10 @@
     width: 70px;
     border-radius: 50%;
 }
+.ownerMainPhoto:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
 
 .status {
     margin-top: 10px;
@@ -27,19 +31,6 @@
 .uploader {
     display: none;
 }
-.lableUploader {
-    display: inline-block;
-    position: absolute;
-    bottom: 20px;
-    left: 30px;
-    font-size: 12px;
-}
-.lableUploader:hover {
-    cursor: pointer;
-    color: #000;
-    font-weight: bold;
-}
-
 .contact {
     padding-left: 20px;
 }
