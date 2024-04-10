@@ -9,6 +9,10 @@
     position: relative;
 }
 
+.imgContainer {
+    position: relative;
+}
+
 .mainPhoto {
     border: 7px solid #fff;
     float: left;
@@ -19,9 +23,25 @@
     width: 70px;
     border-radius: 50%;
 }
-.ownerMainPhoto:hover {
+
+.downloadIcon {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    left: 28px;
+    height: 30px;
+    width: 30px;
+}
+
+.imgContainer:hover .ownerMainPhoto {
     cursor: pointer;
     opacity: 0.8;
+}
+
+.imgContainer:hover .downloadIcon {
+    visibility: visible;
+    opacity: 1;
+    cursor: pointer;
 }
 
 .status {
@@ -31,6 +51,7 @@
 .uploader {
     display: none;
 }
+
 .contact {
     padding-left: 20px;
 }

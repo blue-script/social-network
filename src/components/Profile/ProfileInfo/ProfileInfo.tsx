@@ -8,6 +8,7 @@ import ProfileDataForm, {ProfileDataFormProps} from "./ProfileDataForm";
 import {ProfileRequestType} from "../../../api/api";
 import check from "../../../assets/images/checked.png"
 import cn from "classnames";
+import downloadIcon from "../../../assets/images/download_icon.png"
 
 type Props = {
     profile: ProfileType | null,
@@ -45,17 +46,23 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     return (
         <div>
             <div className={s.descriptionBlock}>
-
-                <img onClick={selectFileHandler} className={cn(s.mainPhoto, {[s.ownerMainPhoto]: isOwner})}
-                     src={profile.photos.large || defaultPhoto} alt="photo user"/>
-                {isOwner && <>
-                    <input className={s.uploader}
-                           type="file"
-                           onChange={uploadHandler}
-                           accept="image/*"
-                           ref={inputRef}
-                    />
-                </>}
+                {isOwner
+                    ? <>
+                        <div onClick={selectFileHandler} className={s.imgContainer}>
+                            <img className={cn(s.mainPhoto, {[s.ownerMainPhoto]: isOwner})}
+                                 src={profile.photos.large || defaultPhoto} alt="photo user"/>
+                            <img className={s.downloadIcon} src={downloadIcon} alt="downloadIcon"/>
+                        </div>
+                        <input className={s.uploader}
+                               type="file"
+                               onChange={uploadHandler}
+                               accept="image/*"
+                               ref={inputRef}
+                        />
+                    </>
+                    : <img className={cn(s.mainPhoto, {[s.ownerMainPhoto]: isOwner})}
+                           src={profile.photos.large || defaultPhoto} alt="photo user"/>
+                }
 
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
