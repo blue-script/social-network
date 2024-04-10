@@ -55,9 +55,17 @@ export const authAPI = {
         return instance.delete<ResponseType<{}>>('auth/login')
     }
 }
+export const securityAPI = {
+    getCaptchaURL() {
+        return instance.get<CapchaType>(`security/get-captcha-url`)
+    }
+}
 
 
 // types
+export type CapchaType = {
+    url: string
+}
 export type UsersResponseType = {
     items: UserType[]
     totalCount: number
@@ -78,7 +86,7 @@ export type AuthDataType = {
     email: string
     password: string
     rememberMe?: boolean
-    captcha?: boolean
+    captcha?: string
 }
 export type LoginDataType = {
     id: number
