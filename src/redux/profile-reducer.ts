@@ -10,27 +10,55 @@ const SET_STATUS = "profile/SET-STATUS"
 const DELETE_POST = "profile/DELETE-POST"
 const SAVE_PHOTO_SUCCESS = "profile/SAVE-PHOTO-SAVE_PHOTO_SUCCESS"
 
+type ContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+type PhotosType = {
+    small: string
+    large: string
+}
+export type ProfileType = {
+    aboutMe: string
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: PhotosType
+}
+
 const initialState = {
     posts: [
         {id: 1, message: "Hi, how are you?", likesCount: 12},
         {id: 2, message: "It's my first post", likesCount: 11}
     ],
-    profile: null,
-    status: ''
+    profile: null as null | ProfileType,
+    status: '',
+    newPostState: ''
 }
-const profileReducer = (state: ProfilePageType = initialState, action: StoreActionsTypes): ProfilePageType => {
+type InitialStateType = typeof initialState
+
+const profileReducer = (state = initialState, action: StoreActionsTypes): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
             return {
                 ...state,
                 posts: [
+                    ...state.posts,
                     {
                         id: state.posts.length + 1,
                         message: action.newPostText,
                         likesCount: 0
-                    },
-                    ...state.posts
-                ]
+                    }
+                ],
+                newPostState: ''
             }
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
@@ -45,10 +73,15 @@ const profileReducer = (state: ProfilePageType = initialState, action: StoreActi
     }
 }
 
+export type AddPostActionCreatorActionType = ReturnType<typeof addPostActionCreator>
 export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText}) as const
+export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
+export type SetStatusActionType = ReturnType<typeof setStatus>
 export const setStatus = (userId: string) => ({type: SET_STATUS, userId}) as const
+export type DeletePostActionType = ReturnType<typeof deletePost>
 export const deletePost = (postId: number) => ({type: DELETE_POST, postId}) as const
+export type SavePhotoSuccessActionType = ReturnType<typeof savePhotoSuccess>
 export const savePhotoSuccess = (photos: { small: string, large: string }) => ({
     type: SAVE_PHOTO_SUCCESS,
     photos
@@ -68,7 +101,7 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
         if (response.data.resultCode === 0) {
             dispatch(setStatus(status))
         }
-    } catch(error) {
+    } catch (error) {
         // error handler
     }
 }
@@ -101,36 +134,3 @@ export const saveProfile = (profile: Partial<ProfileRequestType>) => async (disp
 
 export default profileReducer
 
-// types
-export type PostType = {
-    id: number
-    message: string
-    likesCount: number
-}
-export type ProfileType = {
-    aboutMe: string
-    contacts: ContactsType
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: {
-        small: string
-        large: string
-    }
-}
-export type ContactsType = {
-    facebook: string
-    website: string
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: string
-    github: string
-    mainLink: string
-}
-export type ProfilePageType = {
-    posts: PostType[]
-    profile: ProfileType | null
-    status: string
-}

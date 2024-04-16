@@ -13,6 +13,7 @@ import {
     getTotalUsersCount,
     getUsers,
 } from "../../redux/users-selectors";
+import {UserType} from "../../types/types";
 
 class UsersContainer extends React.Component<UsersPropsType, UserType[]> {
     componentDidMount() {
@@ -57,16 +58,6 @@ export default compose<React.ComponentType>(
 )(UsersContainer)
 
 //types
-export type UserType = {
-    name: string
-    id: number
-    photos: {
-        small: null | string
-        large: null | string
-    }
-    status: null | string
-    followed: boolean
-}
 type MapStatePropsType = {
     users: UserType[]
     pageSize: number

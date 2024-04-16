@@ -1,4 +1,4 @@
-import profileReducer, {addPostActionCreator, deletePost} from "./profile-reducer";
+import profileReducer, {addPostActionCreator, deletePost} from "../profile-reducer";
 
 const state = {
     posts: [
@@ -6,7 +6,8 @@ const state = {
         {id: 2, message: "It's my first post", likesCount: 11}
     ],
     profile: null,
-    status: ''
+    status: '',
+    newPostState: ''
 }
 
 it('length of posts should be incremented', () => {

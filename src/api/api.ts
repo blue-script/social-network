@@ -1,7 +1,6 @@
 import axios from "axios"
-import {UserType} from "../components/Users/UsersContainer"
-import {AuthType} from "../redux/auth-reducer"
-import {ContactsType, ProfileType, saveProfile} from "../redux/profile-reducer";
+import {ProfileType} from "../redux/profile-reducer";
+import {UserType} from "../types/types";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -35,7 +34,7 @@ export const profileAPI = {
     savePhoto(photoFile: File) {
         const formData = new FormData();
         formData.append("image", photoFile);
-        return instance.put<ResponseType<{ photos: {small: string, large: string} }>>(`profile/photo`, formData,
+        return instance.put<ResponseType<{ photos: { small: string, large: string } }>>(`profile/photo`, formData,
             {headers: {'Content-Type': 'multipart/form-data'}}
         )
     },
@@ -71,6 +70,13 @@ export type UsersResponseType = {
     totalCount: number
     error: string
 }
+type AuthType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+    captchaUrl: string | null
+}
 export type AuthResponseType = {
     "data": AuthType
     "messages": string[]
@@ -92,6 +98,16 @@ export type LoginDataType = {
     id: number
     login: string
     email: string
+}
+type ContactsType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
 }
 export type ProfileRequestType = {
     aboutMe: string

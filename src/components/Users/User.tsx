@@ -2,8 +2,8 @@ import styles from "./users.module.css"
 import s from "./users.module.css"
 import userPhoto from "../../assets/images/defaultUserPhoto.png"
 import React, {FC} from "react"
-import {UserType} from "./UsersContainer"
 import {NavLink} from "react-router-dom"
+import {UserType} from "../../types/types";
 
 type UserPropsType = {
     followingInProgress: number[]

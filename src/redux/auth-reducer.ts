@@ -8,7 +8,15 @@ const SET_USER_DATA = "samurai-network/auth/SET-USER-DATA"
 const SET_AUTHORIZATION = "samurai-network/auth/SET-AUTHORIZATION"
 const GET_CAPTCHA_URL_SUCCESS = "samurai-network/auth/GET-CAPTCHA-URL-SUCCESS"
 
-const initialState: AuthType = {
+type initialStateType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+    captchaUrl: string | null
+}
+
+const initialState: initialStateType = {
     id: null,
     email: null,
     login: null,
@@ -16,7 +24,7 @@ const initialState: AuthType = {
     captchaUrl: null
 }
 
-const authReducer = (state: AuthType = initialState, action: StoreActionsTypes): AuthType => {
+const authReducer = (state = initialState, action: StoreActionsTypes): initialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
         case GET_CAPTCHA_URL_SUCCESS:
@@ -29,11 +37,14 @@ const authReducer = (state: AuthType = initialState, action: StoreActionsTypes):
     }
 }
 
-export const setAuthUserData = (data: AuthType, isAuth: boolean = false) => ({
+export type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
+export const setAuthUserData = (data: initialStateType, isAuth: boolean = false) => ({
     type: SET_USER_DATA,
     payload: {...data, isAuth}
 }) as const
+export type SetAuthorizationActionType =ReturnType<typeof setAuthorization>
 export const setAuthorization = (isAuth: boolean) => ({type: SET_AUTHORIZATION, isAuth} as const)
+export type GetCaptchaUrlSuccessActionType =ReturnType<typeof getCaptchaUrlSuccess>
 export const getCaptchaUrlSuccess = (captchaUrl: string) => ({
     type: GET_CAPTCHA_URL_SUCCESS,
     payload: {captchaUrl}
@@ -73,11 +84,3 @@ export const logout = () => async (dispatch: ThunkDispatch<AppRootStateType, any
 
 export default authReducer
 
-// types
-export type AuthType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    captchaUrl: string | null
-}

@@ -5,11 +5,15 @@ import {getAuthUserData} from "./auth-reducer";
 
 const INITIALIZED_SUCCESS = "INITIALIZED-SUCCESS"
 
-const initialState: appType = {
+export type initialStateType = {
+    initialized: boolean
+}
+
+const initialState: initialStateType = {
     initialized: false
 }
 
-const appReducer = (state: appType = initialState, action: StoreActionsTypes): appType => {
+const appReducer = (state = initialState, action: StoreActionsTypes): initialStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {...state, initialized: true}
@@ -19,17 +23,14 @@ const appReducer = (state: appType = initialState, action: StoreActionsTypes): a
     }
 }
 
+export type InitializedSuccessActionType = ReturnType<typeof initializedSuccess>
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS}) as const
 
 export const initializeApp = () => (dispatch: ThunkDispatch<AppRootStateType, any, AnyAction>) => {
     dispatch(getAuthUserData())
-        .then(()=> dispatch(initializedSuccess()))
+        .then(() => dispatch(initializedSuccess()))
 
 }
 
 export default appReducer
 
-//types
-export type appType = {
-    initialized: boolean
-}

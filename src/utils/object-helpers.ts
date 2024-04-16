@@ -1,4 +1,4 @@
-import {UserType} from "../components/Users/UsersContainer";
+import {UserType} from "../types/types";
 
 export const updateObjectInArray = <K extends keyof UserType>(items: UserType[], itemId: number, objPropName: K, newObjProps: any) => {
     return items.map((u: UserType) => {

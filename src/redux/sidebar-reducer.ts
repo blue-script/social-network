@@ -1,22 +1,16 @@
-export type FriendType = {
-  id: number
-  name: string
-}
-export type SidebarType = {
-  friends: FriendType[]
-}
-
-const initialState: SidebarType = {
+const initialState = {
     friends: [
-      {id: 1, name: 'Dimych'},
-      {id: 2, name: 'Valera'},
-      {id: 3, name: 'Sasha'},
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Valera'},
+        {id: 3, name: 'Sasha'},
     ],
-  }
-const sidebarReducer = (state: SidebarType = initialState, action: any): SidebarType => {
-  switch (action.type) {
-    default:
-      return state
-  }
+}
+type initialStateType = typeof initialState
+
+const sidebarReducer = (state = initialState, action: any): initialStateType => {
+    switch (action.type) {
+        default:
+            return state
+    }
 }
 export default sidebarReducer

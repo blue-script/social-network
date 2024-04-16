@@ -1,6 +1,6 @@
 import {AppRootStateType} from "./redux-store";
 import {createSelector, Selector} from "reselect";
-import {UserType} from "../components/Users/UsersContainer";
+import {UserType} from "../types/types";
 
 export const getUsersSelector = (state: AppRootStateType) => {
     return state.usersPage.users

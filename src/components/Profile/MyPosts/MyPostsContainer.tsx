@@ -1,9 +1,14 @@
-import {addPostActionCreator, PostType} from '../../../redux/profile-reducer';
+import {addPostActionCreator} from '../../../redux/profile-reducer';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../../redux/redux-store';
 import {Dispatch} from 'redux';
 
+type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
 type MapStatePropsType = {
     posts: PostType[]
 }
