@@ -23,6 +23,27 @@ type Props = {
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({handleSubmit, captchaUrl = null, error}) => {
     return <form className={s.formContainer} onSubmit={handleSubmit}>
+        <p>
+            Из-за реализации авторизации на backend через cookies, авторизация на сайте
+            корректно не работает в браузерах Safari и Yandex из-за политики по ограничению к
+            доступу cookies. Необходимо в данных браузерах самостоятельно включить cookies.
+            <a
+                href="https://dzen.ru/video/watch/615181f2b070b34446419b6c?t=43&utm_referrer=dzen.ru"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{display: "block"}}
+            >
+                Видео как включить cookies в Yandex браузере.
+            </a>
+            <a
+                href="https://media.ithaca.edu/media/Allow+Third+Party+Cookies+-+Safari/1_n3cjqzz9/38123261"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{display: "block"}}
+            >
+                Видео как включить cookies в Safari браузере.
+            </a>
+        </p>
         <div className={s.testData}>
             <h4>Test account details:</h4>
             <span>Email: free@samuraijs.com</span>
