@@ -4,7 +4,7 @@ import User from "./User";
 import s from "./users.module.css"
 import {UserType} from "../../types/types";
 
-type UsersPropsType = {
+type Props = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
@@ -15,8 +15,7 @@ type UsersPropsType = {
     follow: (userId: number) => void
 }
 
-
-const Users: FC<UsersPropsType> = ({currentPage, pageSize, totalUsersCount, onPageChanged, users, ...props}) => {
+const Users: FC<Props> = ({currentPage, pageSize, totalUsersCount, onPageChanged, users, ...props}) => {
     return <div className={s.container}>
         <Paginator currentPage={currentPage} pageSize={pageSize} totalItemsCount={totalUsersCount}
                    onPageChanged={onPageChanged}/>

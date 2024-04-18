@@ -2,23 +2,16 @@ import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import profileReducer, {
     AddPostActionCreatorActionType,
     DeletePostActionType,
-    savePhotoSuccess, SavePhotoSuccessActionType,
+    SavePhotoSuccessActionType,
     SetStatusActionType,
     SetUserProfileActionType
 } from "./profile-reducer"
 import dialogsReducer, {SendMessageCreatorActionType} from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer'
 import usersReducer, {
-    followSuccess, FollowSuccessActionType,
-    setCurrentPage, SetCurrentPageActionType,
-    setTotalUsersCount, SetTotalUsersCountActionType,
-    setUsers, SetUsersActionType,
-    toggleFollowingProgress, ToggleFollowingProgressActionType,
-    toggleIsFetching, ToggleIsFetchingActionType,
-    unfollowSuccess, UnfollowSuccessActionType
+    UsersActionType
 } from "./users-reducer"
 import authReducer, {
-    getCaptchaUrlSuccess,
     GetCaptchaUrlSuccessActionType,
     SetAuthorizationActionType,
     SetAuthUserDataActionType
@@ -51,13 +44,6 @@ export type StoreActionsTypes =
     SendMessageCreatorActionType
     | AddPostActionCreatorActionType
     | SetUserProfileActionType
-    | FollowSuccessActionType
-    | UnfollowSuccessActionType
-    | SetUsersActionType
-    | SetCurrentPageActionType
-    | SetTotalUsersCountActionType
-    | ToggleIsFetchingActionType
-    | ToggleFollowingProgressActionType
     | SetAuthUserDataActionType
     | SetStatusActionType
     | SetAuthorizationActionType
@@ -65,3 +51,4 @@ export type StoreActionsTypes =
     | DeletePostActionType
     | SavePhotoSuccessActionType
     | GetCaptchaUrlSuccessActionType
+    | UsersActionType
