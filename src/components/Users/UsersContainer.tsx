@@ -1,6 +1,6 @@
 import {connect} from "react-redux"
 import {AppRootStateType} from "../../redux/redux-store"
-import {follow, requestUsers, setCurrentPage, unfollow} from "../../redux/users-reducer"
+import {follow, requestUsers, unfollow} from "../../redux/users-reducer"
 import React from "react"
 import Users from "./Users"
 import Preloader from "../common/Preloader/Preloader"
