@@ -86,7 +86,7 @@ export const requestUsers = (page: number, pageSize: number): ThunkType => {
     }
 }
 
-const _followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: ApiMethodType, actionCreator: ActionCreatorType) => {
+const _followUnfollowFlow = async (dispatch: Dispatch<UsersActionsType>, userId: number, apiMethod: ApiMethodType, actionCreator: (userId: number) => UsersActionsType) => {
     dispatch(actions.toggleFollowingProgress(userId, true))
     const response = await apiMethod(userId)
     if (response.data.resultCode === ResultCodes.Success) {
@@ -111,7 +111,3 @@ type InitialStateType = typeof initialState
 export type UsersActionsType = InferActionsType<typeof actions>
 type ThunkType = BaseThunkType<UsersActionsType>
 type ApiMethodType = (userId: number) => Promise<AxiosResponse<APIResponseType>>
-type ActionCreatorType = (userId: number) => {
-    readonly type: string,
-    readonly userId: number
-}
