@@ -27,14 +27,23 @@ const FormControl: React.FC<WrappedFieldProps> = (
     </div>
 }
 
-export const createField = (placeholder: string, name: string, validate: Partial<ValidatorsType>, component: FunctionComponent<WrappedFieldProps>, props: object = {}, text: string = '') => (
-    <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
-        <Field placeholder={placeholder}
-               name={name}
-               validate={validate}
-               component={component}
-               {...props}
 
-        /> {text}
-    </div>
-)
+
+export function createField<FormKeysType extends string>(placeholder: string,
+                                      name: FormKeysType,
+                                      validate: Partial<ValidatorsType>,
+                                      component: FunctionComponent<WrappedFieldProps>,
+                                      props: object = {},
+                                      text: string = '') {
+    return (
+        <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
+            <Field placeholder={placeholder}
+                   name={name}
+                   validate={validate}
+                   component={component}
+                   {...props}
+
+            /> {text}
+        </div>
+    )
+}

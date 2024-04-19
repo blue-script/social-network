@@ -11,17 +11,15 @@ import {Redirect} from "react-router-dom";
 import styles from "../common/FormsControls/FormsControls.module.css"
 import s from "./Login.module.css"
 
-type FormDataType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha: string
-}
 type Props = {
     captchaUrl: string | null
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({handleSubmit, captchaUrl = null, error}) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, Props> & Props> = ({
+                                                                                      handleSubmit,
+                                                                                      captchaUrl = null,
+                                                                                      error
+                                                                                  }) => {
     return <form className={s.formContainer} onSubmit={handleSubmit}>
         <p>
             Из-за реализации авторизации на backend через cookies, авторизация на сайте
@@ -49,12 +47,12 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({ha
             <span>Email: free@samuraijs.com</span>
             <span>Password: free</span>
         </div>
-        {createField("Email", "email", [required], Input)}
-        {createField("Password", "password", [required], Input, {type: "password"})}
-        {createField("", "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
+        {createField<LoginFormDataTypeKeys>("Email", "email", [required], Input)}
+        {createField<LoginFormDataTypeKeys>("Password", "password", [required], Input, {type: "password"})}
+        {createField<LoginFormDataTypeKeys>("", "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
 
         {captchaUrl && <img src={captchaUrl} alt="captcha"/>}
-        {captchaUrl && createField("Symbols from image", "captcha", [required], Input)}
+        {captchaUrl && createField<LoginFormDataTypeKeys>("Symbols from image", "captcha", [required], Input)}
 
         {error && <div className={styles.formSummaryError}>
             {error}
@@ -65,10 +63,20 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, Props> & Props> = ({ha
     </form>
 }
 
-const LoginReduxForm = reduxForm<FormDataType, Props>({form: 'login'})(LoginForm)
+const LoginReduxForm = reduxForm<LoginFormDataType, Props>({form: 'login'})(LoginForm)
+
+type LoginPropsType = MapStatePropsType & MapDispatchPropsType
+
+export type LoginFormDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
+}
+type LoginFormDataTypeKeys = Extract<keyof LoginFormDataType, string>
 
 const Login: React.FC<LoginPropsType> = (props) => {
-    const onSubmit = (formData: FormDataType) => {
+    const onSubmit = (formData: LoginFormDataType) => {
         props.login({
             email: formData.email,
             password: formData.password,
@@ -89,22 +97,18 @@ const Login: React.FC<LoginPropsType> = (props) => {
     </div>
 }
 
+type MapStatePropsType = {
+    isAuth: boolean
+    captchaUrl: string | null
+}
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     isAuth: state.auth.isAuth,
     captchaUrl: state.auth.captchaUrl
 })
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {login})
-)(Login)
-
-
-// types
-type MapStatePropsType = {
-    isAuth: boolean
-    captchaUrl: string | null
-}
 type MapDispatchPropsType = {
     login: (authData: AuthDataType) => void
 }
-type LoginPropsType = MapStatePropsType & MapDispatchPropsType
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {login})
+)(Login)
