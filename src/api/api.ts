@@ -1,6 +1,7 @@
 import axios from "axios"
 import {ProfileType} from "../redux/profile-reducer";
 import {UserType} from "../types/types";
+import {ResultCodes} from "../enums/enums";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -45,10 +46,10 @@ export const profileAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get<AuthResponseType>(`auth/me`)
+        return instance.get<AuthResponseType>(`auth/me`).then(res => res.data)
     },
     login(authData: AuthDataType) {
-        return instance.post<ResponseType<LoginDataType>>('auth/login', authData)
+        return instance.post<ResponseType<LoginDataType>>('auth/login', authData).then(res=>res.data)
     },
     logout() {
         return instance.delete<ResponseType<{}>>('auth/login')
@@ -59,7 +60,6 @@ export const securityAPI = {
         return instance.get<CapchaType>(`security/get-captcha-url`)
     }
 }
-
 
 // types
 export type CapchaType = {
@@ -81,10 +81,10 @@ export type AuthResponseType = {
     "data": AuthType
     "messages": string[]
     "fieldsErrors": string[]
-    "resultCode": number
+    "resultCode": ResultCodes
 }
 export type ResponseType<T> = {
-    resultCode: number
+    resultCode: ResultCodes
     messages: string[]
     data: T
 }

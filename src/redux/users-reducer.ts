@@ -5,6 +5,7 @@ import {AxiosResponse} from "axios";
 import {updateObjectInArray} from "../utils/object-helpers";
 import {UserType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
+import {ResultCodes} from "../enums/enums";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -120,7 +121,7 @@ type ActionCreatorType = (userId: number) => {
 const _followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: ApiMethodType, actionCreator: ActionCreatorType) => {
     dispatch(toggleFollowingProgress(userId, true))
     const response = await apiMethod(userId)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodes.Success) {
         dispatch(actionCreator(userId))
     }
     dispatch(toggleFollowingProgress(userId, false))

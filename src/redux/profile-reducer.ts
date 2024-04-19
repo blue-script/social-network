@@ -3,6 +3,7 @@ import {AnyAction, Dispatch} from "redux";
 import {profileAPI, ProfileRequestType} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {stopSubmit} from "redux-form";
+import {ResultCodes} from "../enums/enums";
 
 const ADD_POST = "profile/ADD-POST"
 const SET_USER_PROFILE = "profile/SET-USER-PROFILE"
@@ -98,7 +99,7 @@ export const getUserStatus = (userId: string) => async (dispatch: Dispatch) => {
 export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
     try {
         const response = await profileAPI.updateStatus(status)
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === ResultCodes.Success) {
             dispatch(setStatus(status))
         }
     } catch (error) {
@@ -107,14 +108,14 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
 }
 export const savePhoto = (file: File) => async (dispatch: Dispatch) => {
     const response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodes.Success) {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
 export const saveProfile = (profile: Partial<ProfileRequestType>) => async (dispatch: ThunkDispatch<AppRootStateType, any, AnyAction>, getState: () => AppRootStateType) => {
     const userId = getState().auth.id
     const response = await profileAPI.saveProfile(profile)
-    if (response.data.resultCode === 0 && userId) {
+    if (response.data.resultCode === ResultCodes.Success && userId) {
         dispatch(getUserProfile(userId.toString()))
     } else {
         const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
