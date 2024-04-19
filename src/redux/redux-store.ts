@@ -1,24 +1,12 @@
-import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
-import profileReducer, {
-    AddPostActionCreatorActionType,
-    DeletePostActionType,
-    SavePhotoSuccessActionType,
-    SetStatusActionType,
-    SetUserProfileActionType
-} from "./profile-reducer"
-import dialogsReducer, {SendMessageCreatorActionType} from './dialogs-reducer'
+import {Action, applyMiddleware, combineReducers, compose, createStore} from 'redux'
+import profileReducer, {ProfileActionsType} from "./profile-reducer"
+import dialogsReducer, {DialogsActionsType} from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer'
-import usersReducer, {
-    UsersActionType
-} from "./users-reducer"
-import authReducer, {
-    GetCaptchaUrlSuccessActionType,
-    SetAuthorizationActionType,
-    SetAuthUserDataActionType
-} from "./auth-reducer"
-import thunkMiddleware from "redux-thunk";
+import usersReducer, {UsersActionsType} from "./users-reducer"
+import authReducer, {AuthActionsType} from "./auth-reducer"
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
-import appReducer, {InitializedSuccessActionType} from "./app-reducer";
+import appReducer, {AppActionsType} from "./app-reducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -38,20 +26,10 @@ window.__store__ = store
 
 export default store
 
-type PropertiesTypes<T> = T extends {[key: string]: infer U } ? U : never
-export type InferActionsType<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
+export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppRootStateType, unknown, A>
 
 export type StoreType = typeof store
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type StoreActionsTypes =
-    SendMessageCreatorActionType
-    | AddPostActionCreatorActionType
-    | SetUserProfileActionType
-    | SetAuthUserDataActionType
-    | SetStatusActionType
-    | SetAuthorizationActionType
-    | InitializedSuccessActionType
-    | DeletePostActionType
-    | SavePhotoSuccessActionType
-    | GetCaptchaUrlSuccessActionType
-    | UsersActionType
+

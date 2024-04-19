@@ -1,19 +1,13 @@
 import React from "react"
 import Profile from "./Profile"
 import {connect} from "react-redux"
-import {
-    getUserProfile,
-    getUserStatus,
-    ProfileType,
-    savePhoto,
-    saveProfile,
-    updateStatus
-} from "../../redux/profile-reducer"
+import {getUserProfile, getUserStatus, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer"
 import {AppRootStateType} from "../../redux/redux-store"
 import {RouteComponentProps, withRouter} from "react-router-dom"
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-import {ProfileRequestType} from "../../api/api";
+
+import {ProfileRequestType} from "../../api/profile-api";
 
 class ProfileContainer extends React.Component<ProfilePropsType, AppRootStateType> {
     refreshProfile() {
@@ -67,7 +61,7 @@ export default compose<React.ComponentType>(
 
 // types
 type mapStatePropsType = {
-    profile: ProfileType | null
+    profile: ProfileRequestType | null
     status: string
     authorizedUserId: number | null
     isAuth: boolean

@@ -1,9 +1,9 @@
 import React, {FC} from "react";
 import {createField, Input, Textarea} from "../../common/FormsControls/FormsControls";
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {ProfileType} from "../../../redux/profile-reducer";
 import s from "./ProfileInfo.module.css"
 import styles from "../../common/FormsControls/FormsControls.module.css";
+import {ProfileRequestType} from "../../../api/profile-api";
 
 export type ProfileDataFormProps = {
     fullname: string
@@ -13,7 +13,7 @@ export type ProfileDataFormProps = {
 };
 
 type Props = {
-    profile: ProfileType
+    profile: ProfileRequestType
 }
 
 const ProfileDataForm: FC<InjectedFormProps<ProfileDataFormProps, Props> & Props> = (

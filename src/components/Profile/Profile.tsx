@@ -2,11 +2,11 @@ import React from "react"
 import s from "./Profile.module.css"
 import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import MyPostsContainer from "./MyPosts/MyPostsContainer"
-import {ProfileType} from "../../redux/profile-reducer";
-import {ProfileRequestType} from "../../api/api";
+
+import {ProfileRequestType} from "../../api/profile-api";
 
 type Props = {
-    profile: ProfileType | null
+    profile: ProfileRequestType | null
     status: string
     authorizedUserId: number | null
     isAuth: boolean

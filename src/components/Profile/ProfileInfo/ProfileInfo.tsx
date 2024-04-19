@@ -1,17 +1,16 @@
 import React, {ChangeEvent, useRef, useState} from "react"
 import s from "./ProfileInfo.module.css"
-import {ProfileType} from "../../../redux/profile-reducer"
 import Preloader from "../../common/Preloader/Preloader"
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import defaultPhoto from "../../../assets/images/defaultUserPhoto.png"
 import ProfileDataForm, {ProfileDataFormProps} from "./ProfileDataForm";
-import {ProfileRequestType} from "../../../api/api";
 import check from "../../../assets/images/checked.png"
 import cn from "classnames";
 import downloadIcon from "../../../assets/images/download_icon.png"
+import {ProfileRequestType} from "../../../api/profile-api";
 
 type Props = {
-    profile: ProfileType | null,
+    profile: ProfileRequestType | null,
     status: string,
     updateStatus: (status: string) => void
     isOwner: boolean
@@ -80,7 +79,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
 }
 
 type ProfileDataProps = {
-    profile: ProfileType
+    profile: ProfileRequestType
     isOwner: boolean
     goToEditMode: () => void
 }

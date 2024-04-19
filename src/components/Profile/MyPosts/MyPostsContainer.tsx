@@ -1,8 +1,8 @@
-import {addPostActionCreator} from '../../../redux/profile-reducer';
 import MyPosts from './MyPosts';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../../redux/redux-store';
 import {Dispatch} from 'redux';
+import {profileActions} from "../../../redux/profile-reducer";
 
 type PostType = {
     id: number
@@ -26,7 +26,7 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
         addPost: (newPostText: string) => {
-            dispatch(addPostActionCreator(newPostText))
+            dispatch(profileActions.addPostActionCreator(newPostText))
         }
     }
 }
