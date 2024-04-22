@@ -3,7 +3,6 @@ import s from './Post.module.css'
 import defaultIcon from '../../../../assets/images/defaultUserPhoto.png'
 
 export type PostType = {
-  id: number
   message: string
   likesCount: number
 }

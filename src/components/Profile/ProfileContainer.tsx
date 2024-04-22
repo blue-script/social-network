@@ -9,6 +9,12 @@ import {compose} from "redux";
 
 import {ProfileRequestType} from "../../api/profile-api";
 
+type PathParamsType = {
+    userId: string,
+}
+type OwnPropsType = mapStatePropsType & mapDispatchPropsType
+export type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
+
 class ProfileContainer extends React.Component<ProfilePropsType, AppRootStateType> {
     refreshProfile() {
         let userId = this.props.match.params.userId
@@ -18,8 +24,13 @@ class ProfileContainer extends React.Component<ProfilePropsType, AppRootStateTyp
                 this.props.history.push("/login")
             }
         }
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)
+
+        if (!userId) {
+            console.error("ID should exists in URI params or in state ('authorizedUserId')")
+        } else {
+            this.props.getUserProfile(userId)
+            this.props.getUserStatus(userId)
+        }
     }
 
     componentDidMount() {
@@ -46,6 +57,12 @@ class ProfileContainer extends React.Component<ProfilePropsType, AppRootStateTyp
     }
 }
 
+type mapStatePropsType = {
+    profile: ProfileRequestType | null
+    status: string
+    authorizedUserId: number | null
+    isAuth: boolean
+}
 let mapStateToProps = (state: AppRootStateType): mapStatePropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
@@ -53,19 +70,6 @@ let mapStateToProps = (state: AppRootStateType): mapStatePropsType => ({
     isAuth: state.auth.isAuth
 })
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getUserStatus, updateStatus, savePhoto, saveProfile}),
-    withRouter,
-    withAuthRedirect
-)(ProfileContainer)
-
-// types
-type mapStatePropsType = {
-    profile: ProfileRequestType | null
-    status: string
-    authorizedUserId: number | null
-    isAuth: boolean
-}
 type mapDispatchPropsType = {
     getUserProfile: (userId: string) => void
     getUserStatus: (userId: string) => void
@@ -73,8 +77,8 @@ type mapDispatchPropsType = {
     savePhoto: (file: File) => void
     saveProfile: <T>(profile: Partial<ProfileRequestType>) => Promise<T>
 }
-type PathParamsType = {
-    userId: string,
-}
-type OwnPropsType = mapStatePropsType & mapDispatchPropsType
-export type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile, getUserStatus, updateStatus, savePhoto, saveProfile}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)

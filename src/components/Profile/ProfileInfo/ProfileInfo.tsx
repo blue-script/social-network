@@ -5,9 +5,8 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import defaultPhoto from "../../../assets/images/defaultUserPhoto.png"
 import ProfileDataForm, {ProfileDataFormProps} from "./ProfileDataForm";
 import check from "../../../assets/images/checked.png"
-import cn from "classnames";
 import downloadIcon from "../../../assets/images/download_icon.png"
-import {ProfileRequestType} from "../../../api/profile-api";
+import {ContactsType, ProfileRequestType} from "../../../api/profile-api";
 
 type Props = {
     profile: ProfileRequestType | null,
@@ -18,7 +17,7 @@ type Props = {
     saveProfile: <T>(profile: Partial<ProfileRequestType>) => Promise<T>
 }
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}: Props) => {
+const ProfileInfo: React.FC<Props> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -27,13 +26,14 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     }
 
     const onSubmit = (formData: ProfileDataFormProps) => {
+        // todo: remove then
         saveProfile(formData).then(() => {
             setEditMode(false)
         })
     }
 
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
+        if (e.target.files?.length) {
             savePhoto(e.target.files[0])
         }
     }
@@ -48,7 +48,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                 {isOwner
                     ? <>
                         <div onClick={selectFileHandler} className={s.imgContainer}>
-                            <img className={cn(s.mainPhoto, {[s.ownerMainPhoto]: isOwner})}
+                            <img className={`${s.mainPhoto} ${s.ownerMainPhoto}`}
                                  src={profile.photos.large || defaultPhoto} alt="photo user"/>
                             <img className={s.downloadIcon} src={downloadIcon} alt="downloadIcon"/>
                         </div>
@@ -59,8 +59,9 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
                                ref={inputRef}
                         />
                     </>
-                    : <img className={cn(s.mainPhoto, {[s.ownerMainPhoto]: isOwner})}
-                           src={profile.photos.large || defaultPhoto} alt="photo user"/>
+                    : <img className={s.mainPhoto}
+                           src={profile.photos.large || defaultPhoto}
+                           alt="photo user"/>
                 }
 
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
@@ -83,7 +84,7 @@ type ProfileDataProps = {
     isOwner: boolean
     goToEditMode: () => void
 }
-const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataProps) => {
+const ProfileData: React.FC<ProfileDataProps> = ({profile, isOwner, goToEditMode}) => {
     return (
         <div>
             {isOwner && <div>
@@ -110,19 +111,19 @@ const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataProps) => {
                 <img className={s.check} src={check} alt="check"/>
                 <b>Contacts:</b> {Object.keys(profile.contacts).map((key: string) => {
                 return <Contact key={key} contactTitle={key}
-                                contactValue={profile.contacts[key as keyof typeof profile.contacts]}/>
+                                contactValue={profile.contacts[key as keyof ContactsType]}/>
             })}
             </div>
         </div>
     )
 }
 
-type ContactProps = {
+type ContactsProps = {
     contactTitle: string
     contactValue: string
 }
 
-export const Contact = ({contactTitle, contactValue}: ContactProps) => {
+export const Contact: React.FC<ContactsProps> = ({contactTitle, contactValue}) => {
     return <div className={s.contact}><b>{contactTitle}:</b> {contactValue}</div>
 }
 

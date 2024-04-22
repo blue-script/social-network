@@ -1,19 +1,19 @@
 import styles from "./users.module.css"
 import s from "./users.module.css"
 import userPhoto from "../../assets/images/defaultUserPhoto.png"
-import React, {FC} from "react"
+import React from "react"
 import {NavLink} from "react-router-dom"
 import {UserType} from "../../types/types";
 
-type UserPropsType = {
-    followingInProgress: number[]
+type Props = {
     user: UserType
+    followingInProgress: number[]
     unfollow: (userId: number) => void
     follow: (userId: number) => void
 }
 
 
-const User: FC<UserPropsType> = ({user, followingInProgress, unfollow, follow}) => {
+const User: React.FC<Props> = ({user, followingInProgress, unfollow, follow}) => {
     return <div className={s.userContainer}>
         <div className={s.about}>
             <div>
@@ -23,8 +23,8 @@ const User: FC<UserPropsType> = ({user, followingInProgress, unfollow, follow}) 
                 </NavLink>
             </div>
             <div className={s.info}>
-                    <span className={s.userName}>{user.name}</span>
-                    <span className={s.userStatus}>{user.status}</span>
+                <span className={s.userName}>{user.name}</span>
+                <span className={s.userStatus}>{user.status}</span>
             </div>
             <div>
                 {

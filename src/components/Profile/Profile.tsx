@@ -2,7 +2,6 @@ import React from "react"
 import s from "./Profile.module.css"
 import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import MyPostsContainer from "./MyPosts/MyPostsContainer"
-
 import {ProfileRequestType} from "../../api/profile-api";
 
 type Props = {
@@ -21,8 +20,12 @@ type Props = {
 const Profile: React.FC<Props> = (props) => {
     return (
         <div className={s.content}>
-            <ProfileInfo isOwner={props.isOwner} profile={props.profile} status={props.status}
-                         updateStatus={props.updateStatus} savePhoto={props.savePhoto} saveProfile={props.saveProfile}/>
+            <ProfileInfo isOwner={props.isOwner}
+                         profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}
+                         savePhoto={props.savePhoto}
+                         saveProfile={props.saveProfile}/>
             <MyPostsContainer/>
         </div>
     )

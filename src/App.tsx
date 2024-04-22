@@ -18,11 +18,16 @@ import {withSuspense} from "./hoc/withSuspense";
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
-class App extends React.Component<AppPropsType, AppRootStateType> {
-    catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
+type Props = mapStatePropsType & MapDispatchPropsType
+
+const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedProfile = withSuspense(ProfileContainer)
+
+class App extends React.Component<Props, AppRootStateType> {
+
+    catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+        alert("Some error occurred")
         // only for myself test
-        // error handler
-        // alert(promiseRejectionEvent.reason)
     }
 
     componentDidMount() {
@@ -46,14 +51,14 @@ class App extends React.Component<AppPropsType, AppRootStateType> {
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
 
-                    <Switch >
-                        <Redirect exact from="/" to="/profile" />
+                    <Switch>
+                        <Redirect exact from="/" to="/profile"/>
 
                         <Route path="/dialogs"
-                               render={withSuspense(DialogsContainer)}/>
+                               render={() => <SuspendedDialogs/>}/>
 
                         <Route path="/profile/:userId?"
-                               render={withSuspense(ProfileContainer)}/>
+                               render={() => <SuspendedProfile/>}/>
 
                         <Route path="/users" render={() => <UsersContainer/>}/>
 
@@ -72,10 +77,16 @@ class App extends React.Component<AppPropsType, AppRootStateType> {
     }
 }
 
+type mapStatePropsType = {
+    initialized: boolean
+}
 const mapStateToProps = (state: AppRootStateType) => ({
     initialized: state.app.initialized
 })
 
+type MapDispatchPropsType = {
+    initializeApp: () => void
+}
 const AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App)
@@ -89,12 +100,3 @@ const SamuraiJSApp: React.FC = () => {
 }
 
 export default SamuraiJSApp
-
-// types
-type mapStatePropsType = {
-    initialized: boolean
-}
-type MapDispatchPropsType = {
-    initializeApp: () => void
-}
-type AppPropsType = mapStatePropsType & MapDispatchPropsType

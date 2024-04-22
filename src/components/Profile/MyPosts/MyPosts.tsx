@@ -2,51 +2,30 @@ import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
 import {MyPostsType} from './MyPostsContainer';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {Textarea} from "../../common/FormsControls/FormsControls";
+import AddPostForm, {AddPostFormValuesType} from "./AddPostForm/AddPostForm";
 
-const MyPosts = React.memo((props: MyPostsType) =>{
+const MyPosts: React.FC<MyPostsType> = (props) => {
 
     const messagesElements = [...props.posts]
         .reverse()
-        .map(m => <Post key={m.id} id={m.id} message={m.message} likesCount={m.likesCount}/>)
+        .map(m => <Post key={m.id} message={m.message} likesCount={m.likesCount}/>)
 
-    const onAddPost = (formData: FormDataType) => {
-        props.addPost(formData.newPostText)
+    const onAddPost = (values: AddPostFormValuesType) => {
+        props.addPost(values.newPostText)
     }
 
     return (
         <div className={s.postsBlock}>
             <h3>My post</h3>
-            <AddNewPostFormRedux onSubmit={onAddPost}/>
+            <AddPostForm onSubmit={onAddPost}/>
             <div className={s.posts}>
                 {messagesElements}
             </div>
         </div>
-    );
-})
-
-const maxLength10 = maxLengthCreator(10)
-
-export const AddNewPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-
-    return <form className={s.formContainer} onSubmit={props.handleSubmit}>
-        <Field component={Textarea}
-               name="newPostText"
-               placeholder="Post message"
-               value=""
-               validate={[maxLength10]}
-        />
-        <button className={s.button}>Add post</button>
-    </form>
+    )
 }
 
-export const AddNewPostFormRedux = reduxForm<FormDataType>({form: "profileAddNewPostForm"})(AddNewPostForm)
+const MyPostsMemorized = React.memo(MyPosts)
 
-export default MyPosts;
+export default MyPostsMemorized;
 
-//types
-type FormDataType = {
-    newPostText: string
-}

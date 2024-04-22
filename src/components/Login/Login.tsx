@@ -4,7 +4,7 @@ import {compose} from "redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
-import {createField, Input} from "../common/FormsControls/FormsControls";
+import {createField, GetStringKeys, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {Redirect} from "react-router-dom";
 import styles from "../common/FormsControls/FormsControls.module.css"
@@ -73,7 +73,7 @@ export type LoginFormDataType = {
     rememberMe: boolean
     captcha: string
 }
-type LoginFormDataTypeKeys = Extract<keyof LoginFormDataType, string>
+type LoginFormDataTypeKeys = GetStringKeys<LoginFormDataType>
 
 const Login: React.FC<LoginPropsType> = (props) => {
     const onSubmit = (formData: LoginFormDataType) => {

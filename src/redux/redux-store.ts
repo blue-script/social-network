@@ -26,8 +26,7 @@ window.__store__ = store
 
 export default store
 
-type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
-export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
+export type InferActionsType<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, AppRootStateType, unknown, A>
 
 export type StoreType = typeof store

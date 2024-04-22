@@ -11,19 +11,18 @@ class HeaderContainer extends React.Component<AuthPropsType, AuthPropsType> {
     }
 }
 
+type MapStatePropsType = {
+    isAuth: boolean | null
+    login: string | null
+}
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, {logout})(HeaderContainer)
-
-// types
 type MapDispatchPropsType = {
     logout: () => void
 }
-type MapStatePropsType = {
-    isAuth: boolean | null
-    login: string | null
-}
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppRootStateType>(mapStateToProps, {logout})(HeaderContainer)
+
 export type AuthPropsType = MapStatePropsType & MapDispatchPropsType

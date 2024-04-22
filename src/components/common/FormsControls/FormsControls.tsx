@@ -3,6 +3,7 @@ import s from "./FormsControls.module.css"
 import {WrappedFieldProps} from "redux-form/lib/Field";
 import {ValidatorsType} from "../../../utils/validators/validators";
 import {Field} from "redux-form";
+import {AddPostFormValuesType} from "../../Profile/MyPosts/AddPostForm/AddPostForm";
 
 
 export const Textarea: React.FC<WrappedFieldProps> = (props) => {
@@ -47,3 +48,5 @@ export function createField<FormKeysType extends string>(placeholder: string,
         </div>
     )
 }
+
+export type GetStringKeys<T> =  Extract<keyof T, string>

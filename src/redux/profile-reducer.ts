@@ -10,8 +10,7 @@ const initialState = {
     ],
     profile: null as null | ProfileRequestType,
     status: '',
-    newPostState: ''
-}
+    newPostState: ''}
 
 const profileReducer = (state = initialState, action: ProfileActionsType): InitialStateType => {
     switch (action.type) {
@@ -26,8 +25,7 @@ const profileReducer = (state = initialState, action: ProfileActionsType): Initi
                         likesCount: 0
                     }
                 ],
-                newPostState: ''
-            }
+                newPostState: ''            }
         case "SN/PROFILE/SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "SN/PROFILE/SET-STATUS":
