@@ -25,7 +25,7 @@ const authReducer = (state = initialState, action: AuthActionsType): initialStat
     }
 }
 
-const actions = {
+export const authActions = {
     setAuthUserData: (data: initialStateType, isAuth: boolean = false) => ({
         type: "SN/auth/SET-USER-DATA",
         payload: {...data, isAuth}
@@ -41,7 +41,7 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
     const response = await authAPI.me()
     if (response.resultCode === ResultCodes.Success) {
         const data = response.data
-        dispatch(actions.setAuthUserData(data, true))
+        dispatch(authActions.setAuthUserData(data, true))
     }
 }
 export const login = (formData: AuthDataType): ThunkType => async (dispatch) => {
@@ -60,17 +60,17 @@ export const getCaptchaURL = (): ThunkType => async (dispatch) => {
     const data = await securityAPI.getCaptchaURL()
     const captchaUrl = data.url
 
-    dispatch((actions.getCaptchaUrlSuccess(captchaUrl)))
+    dispatch((authActions.getCaptchaUrlSuccess(captchaUrl)))
 }
 export const logout = (): ThunkType => async (dispatch) => {
     const data = await authAPI.logout()
     if (data.resultCode === ResultCodes.Success) {
-        dispatch((actions.setAuthUserData({id: null, email: null, login: null, isAuth: false, captchaUrl: null})))
+        dispatch((authActions.setAuthUserData({id: null, email: null, login: null, isAuth: false, captchaUrl: null})))
     }
 }
 
 export default authReducer
 
 type initialStateType = typeof initialState
-export type AuthActionsType = InferActionsType<typeof actions>
+export type AuthActionsType = InferActionsType<typeof authActions>
 type ThunkType = BaseThunkType<AuthActionsType | FormAction>
