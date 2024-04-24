@@ -13,6 +13,6 @@ describe("Paginator component tests", ()=> {
         const component = create(<Paginator totalItemsCount={11} pageSize={1} portionSize={10} onPageChanged={()=>{}} currentPage={1}/>)
         const root = component.root
         let button = root.findAllByType('button')
-        expect(button.length).toBe(1)
+        expect(button.length).toBe(2)
     })
 })

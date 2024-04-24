@@ -7,10 +7,10 @@ export const usersApi = {
             .then(response => response.data)
     },
     follow(userId: number) {
-        return instance.post<APIResponseType>(`follow/${userId}`)
+        return instance.post<APIResponseType>(`follow/${userId}`).then(res => res.data)
     },
     unfollow(userId: number) {
-        return instance.delete<APIResponseType>(`follow/${userId}`)
+        return instance.delete<APIResponseType>(`follow/${userId}`).then(res => res.data)
     },
 }
 
